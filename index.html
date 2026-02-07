@@ -20,19 +20,42 @@
 </nav>
 
 <section class="container py-5">
-  <div class="text-center mb-4">
-  <button id="googleLogin" class="btn btn-primary">
-    Iniciar sesión con Google
-  </button>
-</div>  
 
-  <h2 class="text-center mb-4">Tu ubicación en tiempo real</h2>
+  <div class="row g-4 align-items-stretch">
 
-  <div class="card shadow-lg border-0 p-4 text-center">
-    <div id="status" class="mb-3">Solicitando ubicación precisa...</div>
-    <div id="location" class="fs-5 fw-semibold"></div>
+    <!-- 🔐 PANEL LOGIN -->
+    <div class="col-lg-5">
+      <div class="card shadow-lg border-0 p-4 h-100 text-center" id="authCard">
+        <h4 class="mb-3">Cuenta de usuario</h4>
+
+        <div id="userPanel" class="d-none">
+          <img id="userPhoto" class="rounded-circle mb-3" width="90" height="90"/>
+          <h5 id="userName"></h5>
+          <p id="userEmail" class="text-muted"></p>
+          <button id="logoutBtn" class="btn btn-outline-danger mt-2">Cerrar sesión</button>
+        </div>
+
+        <div id="loginPanel">
+          <p class="mb-3">Inicia sesión para guardar tus datos en la nube</p>
+          <button id="googleLogin" class="btn btn-dark w-100 mb-2">
+            Iniciar con Google
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🌍 GEOLOCALIZACIÓN -->
+    <div class="col-lg-7">
+      <div class="card shadow-lg border-0 p-4 text-center h-100">
+        <h4 class="mb-3">Tu ubicación en tiempo real</h4>
+        <div id="status" class="mb-3">Solicitando ubicación precisa...</div>
+        <div id="location" class="fs-5 fw-semibold"></div>
+      </div>
+    </div>
+
   </div>
 
+  <!-- APIs -->
   <div class="row mt-5 g-4 text-center">
     <div class="col-6 col-md-3">
       <div class="card api-card">Redes Sociales</div>
@@ -49,6 +72,7 @@
   </div>
 
 </section>
+
 
 <script type="module" src="firebase.js"></script>
 <script type="module" src="app.js"></script>

@@ -68,3 +68,35 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
+import { auth, provider } from "./firebase.js";
+import { signInWithPopup, onAuthStateChanged, signOut } 
+from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+const loginBtn = document.getElementById("googleLogin");
+const logoutBtn = document.getElementById("logoutBtn");
+
+loginBtn?.addEventListener("click", async () => {
+  await signInWithPopup(auth, provider);
+});
+
+logoutBtn?.addEventListener("click", async () => {
+  await signOut(auth);
+});
+
+onAuthStateChanged(auth, user => {
+  const loginPanel = document.getElementById("loginPanel");
+  const userPanel = document.getElementById("userPanel");
+
+  if(user){
+    loginPanel.classList.add("d-none");
+    userPanel.classList.remove("d-none");
+
+    document.getElementById("userPhoto").src = user.photoURL;
+    document.getElementById("userName").textContent = user.displayName;
+    document.getElementById("userEmail").textContent = user.email;
+  }else{
+    loginPanel.classList.remove("d-none");
+    userPanel.classList.add("d-none");
+  }
+});
+

@@ -48,3 +48,18 @@ body{
   color:#415a77;
   font-weight:500;
 }
+
+#authCard{
+  background: linear-gradient(135deg,#0d1b2a,#1b263b);
+  color: white;
+}
+
+#authCard button{
+  border-radius:10px;
+  font-weight:600;
+}
+
+#userPhoto{
+  border:4px solid white;
+  object-fit:cover;
+}
