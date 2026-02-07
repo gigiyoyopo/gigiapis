@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const status = document.getElementById("status");
   const locationDiv = document.getElementById("location");
 
-  // ---------- GEOLOCALIZACIÓN (lo que ya tenías) ----------
+  // DETECTAR UBICACIÓN Y GUARDAR EN FIRESTORE (API BASE DE GEOLOCALIZACIÓN + API BASE DE DATOS)
   navigator.geolocation.getCurrentPosition(async (position) => {
 
     const lat = position.coords.latitude;
@@ -43,8 +43,10 @@ document.addEventListener("DOMContentLoaded", () => {
       <strong>Ubicación detectada:</strong><br>
       ${municipio}, ${estado}, ${pais}
     `;
+    status.style.display = "none";
 
-    // 🔥 GUARDAR EN FIRESTORE (API BASE DE DATOS)
+
+    // GUARDAR EN FIRESTORE (API BASE DE DATOS)
     await addDoc(collection(db, "ubicaciones"), {
       municipio,
       estado,
@@ -54,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   });
 
-  // ---------- AUTENTICACIÓN ----------
+  // AUTENTICACIÓN CON GOOGLE (API BASE DE AUTENTICACIÓN)
   const googleBtn = document.getElementById("googleLogin");
 
   googleBtn.addEventListener("click", async () => {
