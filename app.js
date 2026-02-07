@@ -1,10 +1,7 @@
 import { auth, provider, db } from "./firebase.js";
 import {
   signInWithPopup,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
 import {
@@ -14,68 +11,90 @@ import {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  const apiKey = "4e7c51f2c46042caad60314486a9f31e";
+  const openCageKey = "4e7c51f2c46042caad60314486a9f31e";
+  const weatherKey = "a8298c551d4cf6e0334e10a8953e6187";
+
   const status = document.getElementById("status");
   const locationDiv = document.getElementById("location");
-
-  // DETECTAR UBICACIÓN Y GUARDAR EN FIRESTORE (API BASE DE GEOLOCALIZACIÓN + API BASE DE DATOS)
-  navigator.geolocation.getCurrentPosition(async (position) => {
-
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
-
-      // OBTENER CLIMA ACTUAL (API PLATAFORMAS ONLINE)
   const weatherDiv = document.getElementById("weather");
 
-  const API_KEY = "a8298c551d4cf6e0334e10a8953e6187";
+  // -------- GEOLOCALIZACIÓN --------
+  navigator.geolocation.getCurrentPosition(
+    async (position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
 
-  const weatherURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=es`;
+      // 1️⃣ Mostrar ubicación textual (OpenCage)
+      try {
+        const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${openCageKey}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        const components = data.results[0].components;
 
-  const weatherResponse = await fetch(weatherURL);
-  const weatherData = await weatherResponse.json();
+        const municipio =
+          components.city ||
+          components.town ||
+          components.village ||
+          components.county ||
+          "Municipio desconocido";
 
-  const temp = weatherData.main.temp;
-  const desc = weatherData.weather[0].description;
+        const estado = components.state || "Estado desconocido";
+        const pais = components.country || "País desconocido";
 
-  weatherDiv.innerHTML = `
-    🌤 <strong>Clima actual en tu zona:</strong><br>
-    ${temp}°C • ${desc}
-  `;
+        locationDiv.innerHTML = `
+          <strong>Ubicación detectada:</strong><br>
+          ${municipio}, ${estado}, ${pais}
+        `;
 
+        status.style.display = "none";
 
-    const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${apiKey}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    const components = data.results[0].components;
+        // Guardar en Firestore SIN romper nada si falla
+        try {
+          await addDoc(collection(db, "ubicaciones"), {
+            municipio,
+            estado,
+            pais,
+            fecha: new Date()
+          });
+        } catch (e) {
+          console.warn("No se pudo guardar en Firestore");
+        }
 
-    const municipio =
-      components.city ||
-      components.town ||
-      components.village ||
-      components.county ||
-      "Municipio desconocido";
+      } catch (e) {
+        locationDiv.textContent = "No se pudo obtener la ubicación textual.";
+        status.style.display = "none";
+      }
 
-    const estado = components.state || "Estado desconocido";
-    const pais = components.country || "País desconocido";
+      // 2️⃣ Obtener clima (OpenWeather) — independiente
+      obtenerClima(lat, lon);
+    },
 
-    locationDiv.innerHTML = `
-      <strong>Ubicación detectada:</strong><br>
-      ${municipio}, ${estado}, ${pais}
-    `;
-    status.style.display = "none";
+    (error) => {
+      status.textContent = "Permiso de ubicación denegado.";
+    }
+  );
 
+  // -------- FUNCIÓN CLIMA (NO AFECTA GEO) --------
+  async function obtenerClima(lat, lon) {
+    try {
+      const weatherURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weatherKey}&units=metric&lang=es`;
 
-    // GUARDAR EN FIRESTORE (API BASE DE DATOS)
-    await addDoc(collection(db, "ubicaciones"), {
-      municipio,
-      estado,
-      pais,
-      fecha: new Date()
-    });
+      const weatherResponse = await fetch(weatherURL);
+      const weatherData = await weatherResponse.json();
 
-  });
+      const temp = weatherData.main.temp;
+      const desc = weatherData.weather[0].description;
 
-  // AUTENTICACIÓN CON GOOGLE (API BASE DE AUTENTICACIÓN)
+      weatherDiv.innerHTML = `
+        🌤 <strong>Clima actual en tu zona:</strong><br>
+        ${temp}°C • ${desc}
+      `;
+    } catch (e) {
+      console.warn("El clima falló pero la ubicación ya se mostró");
+    }
+  }
+
+  // -------- AUTENTICACIÓN GOOGLE --------
   const googleBtn = document.getElementById("googleLogin");
 
   googleBtn.addEventListener("click", async () => {
