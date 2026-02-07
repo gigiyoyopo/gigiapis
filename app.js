@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const lon = position.coords.longitude;
       const precision = position.coords.accuracy;
 
-      status.innerHTML = `GPS detectado con precisión de <b>${precision.toFixed(0)} metros</b>`;
+      status.innerHTML = `GPS detectado correctamente`;
 
       // OpenCage SOLO para convertir a dirección
       const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${apiKey}`;
@@ -26,12 +26,22 @@ document.addEventListener("DOMContentLoaded", () => {
       const response = await fetch(url);
       const data = await response.json();
 
-      const place = data.results[0].formatted;
+      // 🔥 Aquí está el cambio clave
+      const components = data.results[0].components;
+
+      const municipio =
+        components.city ||
+        components.town ||
+        components.village ||
+        components.county ||
+        "Municipio desconocido";
+
+      const estado = components.state || "Estado desconocido";
+      const pais = components.country || "País desconocido";
 
       locationDiv.innerHTML = `
-        <strong>Latitud:</strong> ${lat} <br>
-        <strong>Longitud:</strong> ${lon} <br><br>
-        <strong>Dirección exacta:</strong><br>${place}
+        <strong>Ubicación detectada:</strong><br>
+        ${municipio}, ${estado}, ${pais}
       `;
     },
     (error) => {

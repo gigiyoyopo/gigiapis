@@ -1,26 +1,50 @@
 body{
-  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  background: #f4f7fb; /* azul muy claro casi blanco */
   min-height:100vh;
-  color:white;
+  color:#1b2a41; /* azul oscuro elegante para texto */
   font-family: 'Segoe UI', sans-serif;
 }
 
+/* NAVBAR se verá más elegante con esto */
+.navbar{
+  background: #0d1b2a !important; /* azul muy oscuro elegante */
+}
+
+/* Tarjetas principales */
 .card{
   border:none;
   border-radius:18px;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(10px);
+  background: #ffffff;
+  box-shadow: 0 10px 25px rgba(13,27,42,0.08);
 }
 
+/* Tarjetas de APIs */
 .api-card{
   padding:30px 10px;
   font-weight:bold;
   font-size:18px;
   transition:0.3s;
   cursor:pointer;
+  background: #e8eef7; /* azul claro elegante */
+  color:#0d1b2a;
+  border-radius:14px;
 }
 
+/* Hover elegante */
 .api-card:hover{
   transform: translateY(-8px);
-  background: rgba(255,255,255,0.15);
+  background: #d6e4f5;
+  box-shadow: 0 12px 20px rgba(13,27,42,0.15);
+}
+
+/* Texto de ubicación más visible */
+#location{
+  color:#0d1b2a;
+  font-size:18px;
+}
+
+/* Estado (mensaje de GPS) */
+#status{
+  color:#415a77;
+  font-weight:500;
 }
