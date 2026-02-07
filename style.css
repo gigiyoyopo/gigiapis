@@ -1,0 +1,26 @@
+body{
+  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  min-height:100vh;
+  color:white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.card{
+  border:none;
+  border-radius:18px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+}
+
+.api-card{
+  padding:30px 10px;
+  font-weight:bold;
+  font-size:18px;
+  transition:0.3s;
+  cursor:pointer;
+}
+
+.api-card:hover{
+  transform: translateY(-8px);
+  background: rgba(255,255,255,0.15);
+}
