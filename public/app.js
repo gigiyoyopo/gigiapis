@@ -112,37 +112,57 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnSocial = document.getElementById("btnSocial");
   const btnStreaming = document.getElementById("btnStreaming");
 
+  // 🔑 CLAVES DE API (¡Reemplázalas con las tuyas!)
+  // Consigue tu Key gratis en: https://developers.giphy.com/dashboard/
+  const GIPHY_API_KEY = "ENllyIMcpq7qJk0IuxUxS8nSDYD4JeVA"; 
+  
+  // Consigue tu Key gratis en: https://www.themoviedb.org/settings/api
+  const TMDB_API_KEY = "4d3f5c3b125118aab5652f8c7269d49b"; 
+
   // Función para abrir el modal con contenido
   const showModal = (title, contentHTML) => {
     const modalTitle = document.getElementById("apiModalLabel");
     const modalBody = document.getElementById("apiModalBody");
+    const modalElement = document.getElementById('apiModal');
     
     modalTitle.textContent = title;
     modalBody.innerHTML = contentHTML;
 
-    // Usamos la instancia global de Bootstrap cargada en el HTML
-    const myModal = new bootstrap.Modal(document.getElementById('apiModal'));
-    myModal.show();
+    // Usamos window.bootstrap para asegurar que accedemos a la librería cargada en el HTML
+    if (window.bootstrap) {
+      const myModal = new bootstrap.Modal(modalElement);
+      myModal.show();
+    } else {
+      console.error("Bootstrap no está cargado");
+      alert("Error: La librería Bootstrap no se ha cargado correctamente.");
+    }
   };
 
-  // 1. API REDES SOCIALES (Simulación con JSONPlaceholder)
+  // 1. API REDES SOCIALES (GIPHY - Requiere Key)
   btnSocial.addEventListener("click", async () => {
-    showModal("Feed Social", "<div class='text-center py-3'><div class='spinner-border text-primary'></div><p class='mt-2'>Cargando publicaciones...</p></div>");
+    if (GIPHY_API_KEY === "TU_API_KEY_GIPHY_AQUI") {
+      alert("⚠️ Debes poner tu API Key de Giphy en el archivo app.js línea 117");
+      return;
+    }
+
+    showModal("Tendencias en Redes (Giphy)", "<div class='text-center py-3'><div class='spinner-border text-primary'></div><p class='mt-2'>Cargando feed...</p></div>");
 
     try {
-      const res = await fetch("https://jsonplaceholder.typicode.com/posts?_limit=5");
-      const posts = await res.json();
+      // Endpoint: Trending GIFs
+      const res = await fetch(`https://api.giphy.com/v1/gifs/trending?api_key=${GIPHY_API_KEY}&limit=9&rating=g`);
+      
+      if (!res.ok) throw new Error("Error de autorización o red");
+      
+      const data = await res.json();
+      const posts = data.data;
 
-      let html = '<div class="list-group list-group-flush">';
+      let html = '<div class="row g-2">';
       posts.forEach(post => {
         html += `
-          <div class="list-group-item px-0 py-3">
-            <div class="d-flex w-100 justify-content-between align-items-center mb-1">
-              <h6 class="mb-0 fw-bold text-primary">@usuario_${post.userId}</h6>
-              <small class="text-muted">Hace un momento</small>
+          <div class="col-4">
+            <div class="card h-100 border-0">
+              <img src="${post.images.fixed_height_small.url}" class="card-img-top rounded" style="object-fit: cover; height: 120px;" alt="${post.title}">
             </div>
-            <p class="mb-1 text-dark">${post.title}</p>
-            <small class="text-muted">${post.body.substring(0, 60)}...</small>
           </div>
         `;
       });
@@ -150,28 +170,41 @@ document.addEventListener("DOMContentLoaded", () => {
       
       document.getElementById("apiModalBody").innerHTML = html;
     } catch (error) {
-      document.getElementById("apiModalBody").innerHTML = "<p class='text-danger'>Error cargando el feed social.</p>";
+      document.getElementById("apiModalBody").innerHTML = "<p class='text-danger text-center'>Error: Verifica tu API Key de Giphy.</p>";
     }
   });
 
-  // 2. API STREAMING (TVMaze - Series Reales)
+  // 2. API STREAMING (TMDB - Requiere Key)
   btnStreaming.addEventListener("click", async () => {
-    showModal("Tendencias Streaming", "<div class='text-center py-3'><div class='spinner-border text-danger'></div><p class='mt-2'>Buscando series...</p></div>");
+    if (TMDB_API_KEY === "TU_API_KEY_TMDB_AQUI") {
+      alert("⚠️ Debes poner tu API Key de TMDB en el archivo app.js línea 120");
+      return;
+    }
+
+    showModal("Catálogo Streaming (TMDB)", "<div class='text-center py-3'><div class='spinner-border text-danger'></div><p class='mt-2'>Conectando con TMDB...</p></div>");
 
     try {
-      const res = await fetch("https://api.tvmaze.com/shows");
+      // Endpoint: Trending TV Shows
+      const res = await fetch(`https://api.themoviedb.org/3/trending/tv/week?api_key=${TMDB_API_KEY}&language=es-ES`);
+      
+      if (!res.ok) throw new Error("Error de autorización o red");
+
       const data = await res.json();
-      const shows = data.slice(0, 6); // Tomamos las primeras 6
+      const shows = data.results.slice(0, 6);
 
       let html = '<div class="row g-3">';
       shows.forEach(show => {
+        const imgUrl = show.poster_path 
+          ? `https://image.tmdb.org/t/p/w500${show.poster_path}` 
+          : 'https://via.placeholder.com/500x750?text=No+Image';
+
         html += `
           <div class="col-6 col-md-4">
             <div class="card h-100 border-0 shadow-sm">
-              <img src="${show.image?.medium}" class="card-img-top rounded" alt="${show.name}" style="height: 160px; object-fit: cover;">
+              <img src="${imgUrl}" class="card-img-top rounded" alt="${show.name}" style="height: 160px; object-fit: cover;">
               <div class="card-body p-2 text-center">
                 <h6 class="card-title text-truncate small mb-1">${show.name}</h6>
-                <span class="badge bg-warning text-dark">★ ${show.rating?.average || '-'}</span>
+                <span class="badge bg-warning text-dark">★ ${show.vote_average ? show.vote_average.toFixed(1) : '-'}</span>
               </div>
             </div>
           </div>
@@ -181,7 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       document.getElementById("apiModalBody").innerHTML = html;
     } catch (error) {
-      document.getElementById("apiModalBody").innerHTML = "<p class='text-danger'>Error cargando catálogo.</p>";
+      document.getElementById("apiModalBody").innerHTML = "<p class='text-danger text-center'>Error: Verifica tu API Key de TMDB.</p>";
     }
   });
 
