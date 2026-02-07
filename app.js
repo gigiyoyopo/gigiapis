@@ -2,17 +2,17 @@ import { auth, provider, db } from "./firebase.js";
 import {
   signInWithPopup,
   onAuthStateChanged,
-  signOut
+  signOut,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-
-import {
-  collection,
-  addDoc
-} from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  // ---------- SHARE REDES ----------
+  // --- Botones de compartir (ya funciona) ---
+  const shareFb = document.getElementById("shareFb");
+  const shareTw = document.getElementById("shareTw");
+  const shareWa = document.getElementById("shareWa");
   const pageURL = window.location.href;
   const text = "Mira esta app que detecta tu ubicación en tiempo real 😎";
 
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   shareTw.href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(pageURL)}&text=${encodeURIComponent(text)}`;
   shareWa.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(text + " " + pageURL)}`;
 
-  // ---------- LOGIN GOOGLE ----------
+  // --- LOGIN GOOGLE ---
   const googleBtn = document.getElementById("googleLogin");
   const userPanel = document.getElementById("userPanel");
   const loginPanel = document.getElementById("loginPanel");
@@ -34,14 +34,40 @@ document.addEventListener("DOMContentLoaded", () => {
       userPanel.classList.remove("d-none");
       loginPanel.classList.add("d-none");
 
-      userPhoto.src = user.photoURL;
-      userName.textContent = user.displayName;
+      userPhoto.src = user.photoURL || "default-avatar.png";
+      userName.textContent = user.displayName || user.email;
       userEmail.textContent = user.email;
     } else {
       userPanel.classList.add("d-none");
       loginPanel.classList.remove("d-none");
     }
   });
+
+  // --- LOGIN / REGISTRO CON CORREO ---
+  const emailForm = document.getElementById("emailForm");
+
+  emailForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("emailInput").value;
+    const password = document.getElementById("passwordInput").value;
+
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      alert("Registrado correctamente");
+    } catch (err) {
+      if (err.code === "auth/email-already-in-use") {
+        // Si ya existe, intentar login
+        try {
+          await signInWithEmailAndPassword(auth, email, password);
+        } catch (loginErr) {
+          alert("Error al iniciar sesión: " + loginErr.message);
+        }
+      } else {
+        alert("Error: " + err.message);
+      }
+    }
+  });
+
 
   // ---------- GEO + OPENCAGE + FIRESTORE ----------
   const openCageKey = "4e7c51f2c46042caad60314486a9f31e";
