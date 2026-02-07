@@ -1,58 +1,70 @@
+import { auth, provider, db } from "./firebase.js";
+import {
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+import {
+  collection,
+  addDoc
+} from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
 document.addEventListener("DOMContentLoaded", () => {
 
   const apiKey = "4e7c51f2c46042caad60314486a9f31e";
   const status = document.getElementById("status");
   const locationDiv = document.getElementById("location");
 
-  if (!navigator.geolocation) {
-    status.textContent = "Tu navegador no soporta geolocalización.";
-    return;
-  }
+  // ---------- GEOLOCALIZACIÓN (lo que ya tenías) ----------
+  navigator.geolocation.getCurrentPosition(async (position) => {
 
-  status.textContent = "Solicitando ubicación GPS precisa...";
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
 
-  navigator.geolocation.getCurrentPosition(
-    async (position) => {
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${apiKey}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    const components = data.results[0].components;
 
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-      const precision = position.coords.accuracy;
+    const municipio =
+      components.city ||
+      components.town ||
+      components.village ||
+      components.county ||
+      "Municipio desconocido";
 
-      status.innerHTML = `GPS detectado correctamente`;
+    const estado = components.state || "Estado desconocido";
+    const pais = components.country || "País desconocido";
 
-      // OpenCage SOLO para convertir a dirección
-      const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${apiKey}`;
+    locationDiv.innerHTML = `
+      <strong>Ubicación detectada:</strong><br>
+      ${municipio}, ${estado}, ${pais}
+    `;
 
-      const response = await fetch(url);
-      const data = await response.json();
+    // 🔥 GUARDAR EN FIRESTORE (API BASE DE DATOS)
+    await addDoc(collection(db, "ubicaciones"), {
+      municipio,
+      estado,
+      pais,
+      fecha: new Date()
+    });
 
-      // 🔥 Aquí está el cambio clave
-      const components = data.results[0].components;
+  });
 
-      const municipio =
-        components.city ||
-        components.town ||
-        components.village ||
-        components.county ||
-        "Municipio desconocido";
+  // ---------- AUTENTICACIÓN ----------
+  const googleBtn = document.getElementById("googleLogin");
 
-      const estado = components.state || "Estado desconocido";
-      const pais = components.country || "País desconocido";
+  googleBtn.addEventListener("click", async () => {
+    await signInWithPopup(auth, provider);
+  });
 
-      locationDiv.innerHTML = `
-        <strong>Ubicación detectada:</strong><br>
-        ${municipio}, ${estado}, ${pais}
-      `;
-    },
-    (error) => {
-      status.textContent = "No se pudo obtener el GPS. Activa la ubicación EXACTA en tu celular.";
-      console.error(error);
-    },
-    {
-      enableHighAccuracy: true,
-      timeout: 15000,
-      maximumAge: 0
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      console.log("Usuario logeado:", user.email);
     }
-  );
+  });
 
 });
