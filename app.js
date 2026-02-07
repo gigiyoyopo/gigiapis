@@ -24,6 +24,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
 
+      // OBTENER CLIMA ACTUAL (API PLATAFORMAS ONLINE)
+  const weatherDiv = document.getElementById("weather");
+
+  const API_KEY = "a8298c551d4cf6e0334e10a8953e6187";
+
+  const weatherURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=es`;
+
+  const weatherResponse = await fetch(weatherURL);
+  const weatherData = await weatherResponse.json();
+
+  const temp = weatherData.main.temp;
+  const desc = weatherData.weather[0].description;
+
+  weatherDiv.innerHTML = `
+    🌤 <strong>Clima actual en tu zona:</strong><br>
+    ${temp}°C • ${desc}
+  `;
+
+
     const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${apiKey}`;
     const response = await fetch(url);
     const data = await response.json();
