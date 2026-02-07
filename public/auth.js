@@ -1,38 +1,34 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-import { 
-  getAuth, 
-  GoogleAuthProvider, 
-  signInWithPopup, 
-  onAuthStateChanged, 
-  signOut 
-} from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
-// TU CONFIG
-const firebaseConfig = {
-  apiKey: "AIzaSyBvJj376-_UV-LuViL-oblKU8q1Js0ZFtY",
-  authDomain: "gigiapis-136ab.firebaseapp.com",
-  projectId: "gigiapis-136ab",
-  storageBucket: "gigiapis-136ab.firebasestorage.app",
-  messagingSenderId: "649541712103",
-  appId: "1:649541712103:web:d55c3d3c305999ef814a42",
-  measurementId: "G-EBTFHKT1VW"
-};
-
-const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
 
-const loginBtn = document.getElementById("googleLogin");
+// Botones
+const loginGoogleBtn = document.getElementById("googleLogin");
+const loginFacebookBtn = document.getElementById("facebookLogin");
 const logoutBtn = document.getElementById("logoutBtn");
 
-loginBtn?.addEventListener("click", async () => {
-  await signInWithPopup(auth, provider);
+// LOGIN GOOGLE
+loginGoogleBtn?.addEventListener("click", async () => {
+  await signInWithPopup(auth, googleProvider);
 });
 
+// LOGIN FACEBOOK
+loginFacebookBtn?.addEventListener("click", async () => {
+  try {
+    await signInWithPopup(auth, facebookProvider);
+  } catch (err) {
+    console.error("Error login con Facebook:", err);
+  }
+});
+
+// LOGOUT
 logoutBtn?.addEventListener("click", async () => {
   await signOut(auth);
 });
 
+// Manejo del estado del usuario
 onAuthStateChanged(auth, user => {
   const loginPanel = document.getElementById("loginPanel");
   const userPanel = document.getElementById("userPanel");
@@ -41,11 +37,12 @@ onAuthStateChanged(auth, user => {
     loginPanel.classList.add("d-none");
     userPanel.classList.remove("d-none");
 
-    document.getElementById("userPhoto").src = user.photoURL;
-    document.getElementById("userName").textContent = user.displayName;
-    document.getElementById("userEmail").textContent = user.email;
-  }else{
+    document.getElementById("userPhoto").src = user.photoURL || "";
+    document.getElementById("userName").textContent = user.displayName || "Usuario";
+    document.getElementById("userEmail").textContent = user.email || "";
+  } else {
     loginPanel.classList.remove("d-none");
     userPanel.classList.add("d-none");
   }
 });
+
