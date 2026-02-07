@@ -29,19 +29,29 @@ document.addEventListener("DOMContentLoaded", () => {
   googleBtn.addEventListener("click", () => signInWithPopup(auth, provider));
   logoutBtn.addEventListener("click", () => signOut(auth));
 
-  onAuthStateChanged(auth, user => {
-    if (user) {
-      userPanel.classList.remove("d-none");
-      loginPanel.classList.add("d-none");
+ onAuthStateChanged(auth, user => {
+  const loginPanel = document.getElementById("loginPanel");
+  const userPanel = document.getElementById("userPanel");
 
-      userPhoto.src = user.photoURL || "default-avatar.png";
-      userName.textContent = user.displayName || user.email;
-      userEmail.textContent = user.email;
-    } else {
-      userPanel.classList.add("d-none");
-      loginPanel.classList.remove("d-none");
-    }
-  });
+  if(user){
+    // Mostrar panel de usuario
+    loginPanel.classList.add("d-none");
+    userPanel.classList.remove("d-none");
+
+    // Actualizar foto, nombre y email
+    const userPhoto = document.getElementById("userPhoto");
+    const userName = document.getElementById("userName");
+    const userEmail = document.getElementById("userEmail");
+
+    userPhoto.src = user.photoURL || "default-avatar.png";
+    userName.textContent = user.displayName || user.email;
+    userEmail.textContent = user.email;
+  } else {
+    loginPanel.classList.remove("d-none");
+    userPanel.classList.add("d-none");
+  }
+});
+
 
   // --- LOGIN / REGISTRO CON CORREO ---
   const emailForm = document.getElementById("emailForm");
