@@ -11,6 +11,20 @@ import {
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    // API REDES SOCIALES
+  const pageURL = window.location.href;
+  const text = "Mira esta app que detecta tu ubicación en tiempo real 😎";
+
+  document.getElementById("shareFb").href =
+    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageURL)}`;
+
+  document.getElementById("shareTw").href =
+    `https://twitter.com/intent/tweet?url=${encodeURIComponent(pageURL)}&text=${encodeURIComponent(text)}`;
+
+  document.getElementById("shareWa").href =
+    `https://api.whatsapp.com/send?text=${encodeURIComponent(text + " " + pageURL)}`;
+
+
   const openCageKey = "4e7c51f2c46042caad60314486a9f31e";
   const weatherKey = "a8298c551d4cf6e0334e10a8953e6187";
 
