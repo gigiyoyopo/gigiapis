@@ -107,4 +107,82 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // -------- IMPLEMENTACIÓN DE NUEVAS APIS --------
+
+  const btnSocial = document.getElementById("btnSocial");
+  const btnStreaming = document.getElementById("btnStreaming");
+
+  // Función para abrir el modal con contenido
+  const showModal = (title, contentHTML) => {
+    const modalTitle = document.getElementById("apiModalLabel");
+    const modalBody = document.getElementById("apiModalBody");
+    
+    modalTitle.textContent = title;
+    modalBody.innerHTML = contentHTML;
+
+    // Usamos la instancia global de Bootstrap cargada en el HTML
+    const myModal = new bootstrap.Modal(document.getElementById('apiModal'));
+    myModal.show();
+  };
+
+  // 1. API REDES SOCIALES (Simulación con JSONPlaceholder)
+  btnSocial.addEventListener("click", async () => {
+    showModal("Feed Social", "<div class='text-center py-3'><div class='spinner-border text-primary'></div><p class='mt-2'>Cargando publicaciones...</p></div>");
+
+    try {
+      const res = await fetch("https://jsonplaceholder.typicode.com/posts?_limit=5");
+      const posts = await res.json();
+
+      let html = '<div class="list-group list-group-flush">';
+      posts.forEach(post => {
+        html += `
+          <div class="list-group-item px-0 py-3">
+            <div class="d-flex w-100 justify-content-between align-items-center mb-1">
+              <h6 class="mb-0 fw-bold text-primary">@usuario_${post.userId}</h6>
+              <small class="text-muted">Hace un momento</small>
+            </div>
+            <p class="mb-1 text-dark">${post.title}</p>
+            <small class="text-muted">${post.body.substring(0, 60)}...</small>
+          </div>
+        `;
+      });
+      html += '</div>';
+      
+      document.getElementById("apiModalBody").innerHTML = html;
+    } catch (error) {
+      document.getElementById("apiModalBody").innerHTML = "<p class='text-danger'>Error cargando el feed social.</p>";
+    }
+  });
+
+  // 2. API STREAMING (TVMaze - Series Reales)
+  btnStreaming.addEventListener("click", async () => {
+    showModal("Tendencias Streaming", "<div class='text-center py-3'><div class='spinner-border text-danger'></div><p class='mt-2'>Buscando series...</p></div>");
+
+    try {
+      const res = await fetch("https://api.tvmaze.com/shows");
+      const data = await res.json();
+      const shows = data.slice(0, 6); // Tomamos las primeras 6
+
+      let html = '<div class="row g-3">';
+      shows.forEach(show => {
+        html += `
+          <div class="col-6 col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <img src="${show.image?.medium}" class="card-img-top rounded" alt="${show.name}" style="height: 160px; object-fit: cover;">
+              <div class="card-body p-2 text-center">
+                <h6 class="card-title text-truncate small mb-1">${show.name}</h6>
+                <span class="badge bg-warning text-dark">★ ${show.rating?.average || '-'}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      html += '</div>';
+
+      document.getElementById("apiModalBody").innerHTML = html;
+    } catch (error) {
+      document.getElementById("apiModalBody").innerHTML = "<p class='text-danger'>Error cargando catálogo.</p>";
+    }
+  });
+
 });

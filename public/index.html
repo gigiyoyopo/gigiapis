@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>APIs</title>
 
+  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -19,65 +21,77 @@
 
 <section class="container py-5">
 
-  <div class="row mt-4 align-items-start gy-4">
+<div class="row mt-4 align-items-start gy-4">
 
-    <!-- LOGIN -->
+    <!-- PANEL LOGIN -->
     <div class="col-lg-5">
-      <div class="card shadow-lg border-0 p-4 text-center" id="authCard">
+      <div class="card shadow-lg border-0 p-4 h-100 text-center" id="authCard">
         <h4 class="mb-3">Cuenta de usuario</h4>
 
         <div id="userPanel" class="d-none">
           <img id="userPhoto" class="rounded-circle mb-3" width="90" height="90"/>
           <h5 id="userName"></h5>
           <p id="userEmail" class="text-muted"></p>
-          <button id="logoutBtn" class="btn btn-outline-danger w-100">Cerrar sesión</button>
+          <button id="logoutBtn" class="btn btn-outline-danger mt-2">Cerrar sesión</button>
         </div>
 
         <div id="loginPanel">
-          <p>Inicia sesión para guardar tus datos en la nube</p>
-
-          <!-- Login con Google -->
-          <button id="googleLogin" class="btn btn-dark w-100 mb-2">Iniciar con Google</button>
-
-          <!-- Registro / login con correo -->
-          <form id="emailForm" class="mt-3">
-            <input type="email" id="emailInput" placeholder="Correo electrónico" class="form-control mb-2" required>
-            <input type="password" id="passwordInput" placeholder="Contraseña" class="form-control mb-2" required>
-            <button type="submit" class="btn btn-success w-100">Registrarse / Iniciar sesión</button>
-          </form>
+          <p class="mb-3">Inicia sesión para guardar tus datos en la nube</p>
+          <button id="googleLogin" class="btn btn-dark w-100 mb-2">
+            Iniciar con Google
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- GEO + CLIMA -->
+    <!-- GEOLOCALIZACIÓN -->
     <div class="col-lg-7">
-      <div class="card shadow-lg border-0 p-4 text-center">
+      <div class="card shadow-lg border-0 p-4 text-center h-100">
         <h4 class="mb-3">Tu ubicación en tiempo real</h4>
-        <div id="status">Solicitando ubicación precisa...</div>
-        <div id="location" class="fs-5 fw-semibold mt-2"></div>
-        <div id="weather" class="fs-5 mt-3"></div>
+        <div id="status" class="mb-3">Solicitando ubicación precisa...</div>
+        <div id="location" class="fs-5 fw-semibold"></div>
+        <div id="weather" class="mt-3 fs-5"></div>
       </div>
     </div>
 
   </div>
 
-
-  <!-- REDES -->
+  <!-- APIs -->
   <div class="row mt-5 g-4 text-center">
-    <div class="col-12">
-      <div class="card p-4">
-        <h5>Compartir esta app</h5>
-        <div class="d-flex justify-content-center gap-3 mt-3 flex-wrap">
-          <a id="shareFb" target="_blank" class="btn btn-primary btn-sm">Facebook</a>
-          <a id="shareTw" target="_blank" class="btn btn-info btn-sm text-white">X</a>
-          <a id="shareWa" target="_blank" class="btn btn-success btn-sm">WhatsApp</a>
-        </div>
-      </div>
+    <div class="col-6 col-md-3">
+      <div class="card api-card" id="btnSocial">Redes Sociales</div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card api-card" id="btnStreaming">Streaming</div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card api-card">Base de Datos</div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card api-card">Plataformas Online</div>
     </div>
   </div>
 
 </section>
 
+<!-- Modal para mostrar resultados de APIs -->
+<div class="modal fade" id="apiModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold" id="apiModalLabel">Resultados</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body pt-0" id="apiModalBody">
+        <!-- El contenido se cargará aquí dinámicamente -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script type="module" src="app.js"></script>
+<script type="module" src="auth.js"></script>
+
 </body>
 </html>
