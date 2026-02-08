@@ -49,17 +49,19 @@ body {
 .navbar { height: 60px; }
 
 /* Offcanvas lateral en móvil: fondo sólido y ocupa toda la altura */
-.offcanvas {
-  background-color: #330000 !important;
-}
 .offcanvas .offcanvas-body {
   padding-top: 1rem;
+}
+/* Offcanvas mitad de pantalla */
+.offcanvas {
+  width: 50% !important;
+  background-color: #330000 !important;
 }
 
 /* Botones Messenger e Instagram más juntos en laptop */
 @media (min-width: 992px) {
-  #contacto .d-flex.gap-2 {
-    gap: 0.5rem; /* menos separación en pantallas grandes */
+  #contacto .d-flex {
+    gap: 6px !important;
   }
 }
 
@@ -84,3 +86,11 @@ body.dark .api-desc { background:#ff9ec2; color:white; }
 
 /* Usuario dark mode */
 body.dark #userEmail { color:white !important; }
+
+.navbar-toggler {
+  border-color: white !important;
+}
+
+.navbar-toggler-icon {
+  filter: invert(1) brightness(2);
+}
