@@ -108,49 +108,42 @@
 <section class="container py-5" id="apoyo">
   <h4 class="mb-4 text-center">Tutoriales de APIs en YouTube</h4>
 
+  <!-- API YouTube -->
   <div id="youtubeVideos" class="row g-4 justify-content-center">
     <div class="text-center">Cargando videos...</div>
   </div>
 
-  <div class="col-12 col-md-6 col-lg-2">
-  <div class="card api-card" onclick="toggleDescription(1)">
-    <div class="api-title">Redes Sociales</div>
+  <!-- API GitHub para buscar desarrolladores -->
+  <div class="container mt-5">
+    <div class="card shadow-lg p-4 hover-card" id="githubSection">
 
-    <!-- API GitHub: Buscador de desarrolladores TI -->
-    <div class="container-fluid mt-5 px-4">
-      <div class="card shadow-lg p-4 hover-card" id="githubSection">
+      <h3 class="text-center mb-4">
+        Buscador de desarrolladores TI con GitHub API
+      </h3>
 
-        <h3 class="text-center mb-4">
-          Buscador de desarrolladores TI con GitHub API
-        </h3>
-
-        <div class="row justify-content-center align-items-center mb-4">
-          <div class="col-12 col-lg-8">
-            <input 
-              type="text" 
-              id="devSearch" 
-              class="form-control form-control-lg" 
-              placeholder="Ej: javascript mexico react"
-              >
-              </div>
-              <div class="col-12 col-lg-2 mt-3 mt-lg-0">
-              <button class="btn btn-dark w-100 btn-lg" onclick="searchDevs()">
-                Buscar desarrolladores
-              </button>
-          </div>
+      <div class="row justify-content-center align-items-center mb-4">
+        <div class="col-12 col-lg-8">
+          <input 
+            type="text" 
+            id="devSearch" 
+            class="form-control form-control-lg" 
+            placeholder="Ej: javascript mexico react"
+          >
         </div>
 
-        <div id="devResults" class="row g-4"></div>
-
+        <div class="col-12 col-lg-3 mt-3 mt-lg-0">
+          <button class="btn btn-dark w-100 btn-lg" onclick="searchDevs()">
+            Buscar desarrolladores
+          </button>
+        </div>
       </div>
+
+      <div id="devResults" class="row g-4"></div>
+
     </div>
-
-
   </div>
-</div>
 
 </section>
-
 
 <!-- APIS -->
 <section class="container py-5" id="apis">
