@@ -1,177 +1,35 @@
-/* BODY & TIPOGRAFÍA */
 body {
-  background: #ffe0ff; /* rosa muy claro casi blanco */
-  min-height: 100vh;
-  color: #89004f; /* texto principal */
+  background: #ffe0ff;
+  min-height:100vh;
+  color:#330000;
   font-family: 'Segoe UI', sans-serif;
-  transition: all 0.4s ease;
-}
-
-/* NAVBAR */
-.navbar {
-  background: #c33b80; /* tono uniforme, elegante */
-  font-weight: 700;
-  padding: 1rem 2rem;
-  box-shadow: 0 5px 25px rgba(0,0,0,0.08);
   transition: all 0.3s ease;
 }
-.navbar .nav-link {
-  color: #ffe0ff;
-  font-weight: 500;
-  transition: 0.3s;
-}
-.navbar .nav-link:hover {
-  color: #ff69b4;
-  transform: translateY(-2px);
-}
 
-/* BOTÓN MODO CLARO/OSCURO */
-#toggleTheme {
-  border-radius: 10px;
-  font-weight: 600;
-  transition: 0.3s;
-  background: #ff69b4;
-  color: #fff;
-  border: none;
-}
-#toggleTheme:hover {
-  transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-/* PANEL LOGIN */
-#authCard {
-  background: #ffa8d9; /* uniforme y elegante */
-  color: #89004f;
-  border-radius: 20px;
-  transition: all 0.4s ease;
-  text-align: center;
-  padding: 2rem;
-}
-.google-btn {
-  background: white;
-  color: #89004f;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border-radius: 10px;
-  transition: 0.3s;
-}
-.google-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-#userPhoto {
-  border: 4px solid #c33b80;
-  object-fit: cover;
-}
-
-/* GEOLOCALIZACIÓN */
-#location, #weather {
-  color: #89004f;
-  font-size: 18px;
-}
-#status {
-  color: #c33b80;
-  font-weight: 500;
-}
-#loader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.navbar {
+  background: #62152d !important;
   font-weight: 600;
 }
 
-/* BLOQUES DE CONTENIDO */
-.content-block {
-  background: #ff69b4;
-  padding: 30px;
-  border-radius: 20px;
-  transition: 0.3s;
-  color: #fff;
-}
-.content-block:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+.navbar-brand #navTitle {
+  color: white !important;
+  font-weight: 700;
 }
 
-/* TARJETAS APIs */
-.api-card {
-  padding: 30px 10px;
-  font-weight: bold;
-  font-size: 18px;
-  transition: 0.3s;
-  cursor: pointer;
-  background: #c33b80;
-  color: #fff;
-  border-radius: 14px;
-}
-.api-card:hover {
-  transform: translateY(-8px);
-  background: #ff69b4;
-  box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+.navbar-nav .nav-link {
+  color: white !important;
+  margin-right: 1rem;
 }
 
-/* FOOTER */
-footer {
-  background: #952f57;
-  color: #ffe0ff;
-  font-weight: 500;
-  border-radius: 10px;
-  transition: all 0.4s ease;
+.navbar-toggler {
+  border-color: #fff;
 }
 
-/* MODO OSCURO */
-body.dark {
-  background: #330000;
-  color: #ff9ec2;
-}
-body.dark #mainNavbar {
-  background: #62152d;
-}
-body.dark .nav-link {
-  color: #ff9ec2;
-}
-body.dark .nav-link:hover {
-  color: #ca668b;
-}
-body.dark #authCard {
-  background: #952f57;
-  color: #ff9ec2;
-}
-body.dark .google-btn {
-  color: #ff9ec2;
-}
-body.dark .content-block {
-  background: #ca668b;
-  color: #fff;
-}
-body.dark .api-card {
-  background: #952f57;
-  color: #ff9ec2;
-}
-body.dark .api-card:hover {
-  background: #ca668b;
-}
-body.dark footer {
-  background: #62152d;
+.navbar-toggler-icon {
+  filter: invert(1);
 }
 
-/* RESPONSIVO: Botón y nav */
-@media (max-width: 991px) {
-  #toggleTheme {
-    margin-top: 0.5rem;
-    width: 100%;
-  }
-  .navbar-collapse {
-    background: #ffb6d9; /* fondo uniforme de nav móvil */
-    padding: 1rem;
-    border-radius: 10px;
-  }
-}
-/* Tarjetas hover sutil */
+/* Hover tarjeta login y geo */
 .hover-card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -180,35 +38,112 @@ body.dark footer {
   box-shadow: 0 15px 30px rgba(0,0,0,0.15);
 }
 
-/* API descripción */
-.api-desc {
-  margin-top: 0.5rem;
-  padding: 10px;
-  border-radius: 10px;
-  background: #ffe0ff; /* modo claro */
-  color: #89004f;
-  font-family: 'Segoe UI', sans-serif;
-  transition: all 0.3s ease;
+/* API Cards */
+.api-card {
+  padding:20px 10px;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+  border-radius:14px;
+  background:#ffa8d9;
+  color:#330000;
+  transition:0.3s;
 }
-body.dark .api-desc {
-  background: #62152d;
-  color: #fff;
-}
-
-/* Cards APIs hover */
 .api-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
-/* Cards Quienes somos y Servicios modo claro */
+/* API Desc desplegable */
+.api-desc {
+  margin-top: 0.5rem;
+  padding: 10px;
+  border-radius: 10px;
+  background: white;
+  color: #330000;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+/* Panel login */
+#authCard {
+  background: #ffe0ff;
+  color: #330000;
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.google-btn {
+  background:white;
+  color: #330000;
+  border:none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-weight:600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.google-btn img {
+  margin-right: 8px;
+}
+
+#geoCard {
+  background: #ffe0ff;
+  color:#330000;
+  border-radius:18px;
+}
+
+/* Contenido secciones */
 .content-block {
-  background: #f5e1ce;
-  padding: 30px;
+  background:white;
+  border: 1px solid #62152d;
+  padding: 25px;
   border-radius: 20px;
-  transition: 0.3s;
+  transition:0.3s;
+}
+
+/* Botones redes */
+.btn-pink {
+  background:#ff69b4;
+  color:white;
+  border:none;
+}
+.btn-pink:hover {
+  background:#c33b80;
+  color:white;
+}
+
+/* Loader */
+#loader {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* Dark mode */
+body.dark {
+  background:#330000;
+  color:white;
+}
+body.dark .navbar {
+  background:#952f57 !important;
 }
 body.dark .content-block {
-  background: #952f57;
-  color: #fff;
+  background:#62152d;
+  color:white;
+}
+body.dark #authCard, body.dark #geoCard {
+  background:#62152d;
+  color:white;
+}
+body.dark .api-card {
+  background:#ca668b;
+  color:white;
+}
+body.dark .api-desc {
+  background:#ff9ec2;
+  color:white;
 }
