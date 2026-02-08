@@ -196,8 +196,9 @@ section{
 }
 
 #githubSection{
-  border-radius: 18px;
+  border-radius: 20px;
   background: white;
+  width: 100%;
 }
 
 body.dark #githubSection{
@@ -205,11 +206,24 @@ body.dark #githubSection{
   color:white;
 }
 
+/* Tarjetas resultados */
 #devResults .card{
-  border-radius: 14px;
-  transition: transform .2s ease, box-shadow .2s ease;
+  border-radius: 16px;
+  padding: 18px;
+  text-align: center;
+  transition: transform .25s ease, box-shadow .25s ease;
 }
+
 #devResults .card:hover{
-  transform: translateY(-5px);
-  box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 14px 26px rgba(0,0,0,0.18);
 }
+
+/* Que en desktop se vean grandes y bien distribuidas */
+@media (min-width: 992px){
+  #devResults .col-md-3{
+    flex: 0 0 22%;
+    max-width: 22%;
+  }
+}
+
