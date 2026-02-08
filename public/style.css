@@ -45,6 +45,24 @@ body {
   transition: all 0.3s ease;
 }
 
+/* Ajuste de navbar altura */
+.navbar { height: 60px; }
+
+/* Offcanvas lateral en móvil: fondo sólido y ocupa toda la altura */
+.offcanvas {
+  background-color: #330000 !important;
+}
+.offcanvas .offcanvas-body {
+  padding-top: 1rem;
+}
+
+/* Botones Messenger e Instagram más juntos en laptop */
+@media (min-width: 992px) {
+  #contacto .d-flex.gap-2 {
+    gap: 0.5rem; /* menos separación en pantallas grandes */
+  }
+}
+
 /* Panel login */
 .google-btn { background:white; color: #330000; border:none; padding: 10px 15px; border-radius: 8px; font-weight:600; display: flex; align-items: center; justify-content: center; }
 .google-btn img { margin-right: 8px; }
