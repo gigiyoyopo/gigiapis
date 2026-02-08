@@ -18,20 +18,9 @@ body {
   color: #ff9ec2 !important;
 }
 
-.navbar-brand #navTitle {
-  color: white !important;
-  font-weight: 700;
-}
-
-.navbar-nav .nav-link {
-  color: white !important;
-  margin-right: 1rem;
-}
-
 .navbar-toggler {
   border-color: #fff;
 }
-
 .navbar-toggler-icon {
   filter: invert(1);
 }
@@ -47,31 +36,20 @@ body {
 
 /* API Cards */
 .api-card {
-  background-color: #ffe0ff; /* rosa muy claro */
-  color: #89004f; /* rosa oscuro casi negro */
+  background-color: #ffe0ff; 
+  color: #89004f; 
   padding: 25px 10px;
   text-align: center;
   border-radius: 14px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 .api-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 20px rgba(0,0,0,0.15);
 }
 
 /* API DESCRIPTION */
-.api-card .d-none {
-  display: none;
-}
-.api-card div {
-  margin-top: 5px;
-  padding: 10px;
-  border-radius: 10px;
-}
-
-/* API Desc desplegable */
 .api-desc {
   margin-top: 0.5rem;
   padding: 10px;
@@ -85,20 +63,6 @@ body {
 }
 
 /* Panel login */
-#authCard button#googleLogin {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-#authCard {
-  background: #ffe0ff;
-  color: #330000;
-  border-radius: 18px;
-  padding: 20px;
-}
-
 .google-btn {
   background:white;
   color: #330000;
@@ -114,10 +78,9 @@ body {
   margin-right: 8px;
 }
 
-#geoCard {
-  background: #ffe0ff;
-  color:#330000;
-  border-radius:18px;
+#authCard, #geoCard {
+  border-radius: 18px;
+  padding: 20px;
 }
 
 /* Contenido secciones */
@@ -138,7 +101,6 @@ body {
 .btn-pink:hover {
   background-color: #c33b80;
   color: white;
-}
 }
 
 /* Loader */
@@ -173,6 +135,7 @@ body.dark .api-desc {
   color:white;
 }
 
+/* Hover efecto general */
 .hover-effect:hover {
   transform: translateY(-5px);
   transition: 0.3s;
