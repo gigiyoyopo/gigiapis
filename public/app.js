@@ -1,12 +1,12 @@
 import { auth } from "./firebase.js";
 import { onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
-// Botones
+// -------------------- Botones --------------------
 const googleBtn = document.getElementById("googleLogin");
 const logoutBtn = document.getElementById("logoutBtn");
 const toggleThemeBtn = document.getElementById("toggleTheme");
 
-// Login Google
+// --- Login Google ---
 const googleProvider = new GoogleAuthProvider();
 googleBtn?.addEventListener("click", async () => {
   try {
@@ -16,18 +16,18 @@ googleBtn?.addEventListener("click", async () => {
   }
 });
 
-// Logout
+// --- Logout ---
 logoutBtn?.addEventListener("click", async () => {
   try { await signOut(auth); } 
   catch(err){ console.error(err); }
 });
 
-// Cambiar tema
+// --- Cambiar tema ---
 toggleThemeBtn?.addEventListener("click", () => {
   document.body.classList.toggle("dark");
 });
 
-// Detectar usuario
+// --- Detectar usuario ---
 onAuthStateChanged(auth, user => {
   const loginPanel = document.getElementById("loginPanel");
   const userPanel = document.getElementById("userPanel");
@@ -43,13 +43,13 @@ onAuthStateChanged(auth, user => {
   }
 });
 
-// Toggle descripción APIs
+// --- Toggle descripción APIs ---
 window.toggleDescription = function(index){
   const desc = document.getElementById('desc'+index);
   desc.classList.toggle('d-none');
 }
 
-// Geolocalización + Clima
+// -------------------- Geolocalización + Clima --------------------
 const status = document.getElementById("status");
 const loader = document.getElementById("loader");
 const locationDiv = document.getElementById("location");
@@ -64,25 +64,59 @@ if(navigator.geolocation){
   loader.innerHTML = "";
 }
 
-function success(pos){
+async function success(pos){
   const lat = pos.coords.latitude;
   const lon = pos.coords.longitude;
-  locationDiv.textContent = `Lat: ${lat.toFixed(4)}, Lon: ${lon.toFixed(4)}`;
-  
-  fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
-    .then(res=>res.json())
-    .then(data=>{
-      weatherDiv.textContent = `Clima: ${data.current_weather.temperature}°C, Viento: ${data.current_weather.windspeed} km/h`;
-      loader.innerHTML = "";
-      status.textContent = "Ubicación encontrada ✅";
-    })
-    .catch(e=>{
-      status.textContent = "No se pudo obtener el clima";
-      loader.innerHTML = "";
-    });
+
+  try {
+    // Reverse geocoding (OpenCage)
+    const geoKey = "4e7c51f2c46042caad60314486a9f31e";
+    const geoRes = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${geoKey}`);
+    const geoData = await geoRes.json();
+    const components = geoData.results[0].components;
+
+    const municipio = components.city || components.town || components.village || components.county || "Municipio desconocido";
+    const estado = components.state || "Estado desconocido";
+    const pais = components.country || "País desconocido";
+
+    locationDiv.innerHTML = `
+      <strong>${municipio}, ${estado}, ${pais}</strong>
+    `;
+    status.textContent = "Ubicación detectada:";
+
+  } catch(e){
+    console.error(e);
+    locationDiv.textContent = "No se pudo obtener la ubicación textual";
+    status.textContent = "";
+  }
+
+  try {
+    // Clima (OpenWeather)
+    const weatherKey = "a8298c551d4cf6e0334e10a8953e6187";
+    const weatherRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weatherKey}&units=metric&lang=es`);
+    const weatherData = await weatherRes.json();
+
+    const temp = weatherData.main.temp;
+    const desc = weatherData.weather[0].description;
+    const iconCode = weatherData.weather[0].icon;
+    const iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+    weatherDiv.innerHTML = `
+      <img src="${iconUrl}" alt="clima" style="width:50px; height:50px; vertical-align:middle;">
+      <span style="font-weight:600; margin-left:5px;">${temp}°C • ${desc}</span>
+    `;
+  } catch(e){
+    console.error(e);
+    weatherDiv.textContent = "No se pudo obtener el clima.";
+  }
+
+  loader.innerHTML = "";
 }
 
 function error(err){
-  status.textContent = "No se pudo obtener la ubicación";
+  console.error(err);
+  status.textContent = "Permiso de ubicación denegado o error al obtener coordenadas.";
   loader.innerHTML = "";
+  locationDiv.textContent = "";
+  weatherDiv.textContent = "";
 }
