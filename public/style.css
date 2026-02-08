@@ -7,8 +7,15 @@ body {
 }
 
 .navbar {
-  background: #62152d !important;
+  background: #330000 !important;
   font-weight: 600;
+  font-size: 1.1rem;
+}
+.navbar a.nav-link {
+  color: white !important;
+}
+.navbar a.nav-link:hover {
+  color: #ff9ec2 !important;
 }
 
 .navbar-brand #navTitle {
@@ -40,18 +47,28 @@ body {
 
 /* API Cards */
 .api-card {
-  padding:20px 10px;
-  font-weight:bold;
-  font-size:16px;
-  cursor:pointer;
-  border-radius:14px;
-  background:#ffa8d9;
-  color:#330000;
-  transition:0.3s;
+  background-color: #ffe0ff; /* rosa muy claro */
+  color: #89004f; /* rosa oscuro casi negro */
+  padding: 25px 10px;
+  text-align: center;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
+
 .api-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+}
+
+/* API DESCRIPTION */
+.api-card .d-none {
+  display: none;
+}
+.api-card div {
+  margin-top: 5px;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 /* API Desc desplegable */
@@ -68,6 +85,13 @@ body {
 }
 
 /* Panel login */
+#authCard button#googleLogin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
 #authCard {
   background: #ffe0ff;
   color: #330000;
@@ -107,13 +131,14 @@ body {
 
 /* Botones redes */
 .btn-pink {
-  background:#ff69b4;
-  color:white;
-  border:none;
+  background-color: #ff69b4;
+  color: white;
+  border: none;
 }
 .btn-pink:hover {
-  background:#c33b80;
-  color:white;
+  background-color: #c33b80;
+  color: white;
+}
 }
 
 /* Loader */
@@ -146,4 +171,9 @@ body.dark .api-card {
 body.dark .api-desc {
   background:#ff9ec2;
   color:white;
+}
+
+.hover-effect:hover {
+  transform: translateY(-5px);
+  transition: 0.3s;
 }

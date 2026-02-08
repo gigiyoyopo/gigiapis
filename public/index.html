@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Prueba de APIs</title>
 
@@ -9,114 +9,143 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="light">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
+<body>
+
+<!-- NAVBAR FIJA -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container">
-    <a class="navbar-brand d-flex align-items-center" href="#">
-      <img src="images/logo.png" alt="Logo Prueba de APIs" id="logo" width="40" height="40" class="me-2">
-      <span id="navTitle">Prueba de APIs</span>
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <a class="navbar-brand" href="#" id="refreshPage">Prueba de APIs</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav align-items-center">
-        <li class="nav-item"><a class="nav-link" href="#" onclick="window.location.reload()">Inicio</a></li>
-        <li class="nav-item"><a class="nav-link" href="#quienes-somos">Quienes somos</a></li>
-        <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
-        <li class="nav-item ms-2"><button id="toggleTheme" class="btn btn-outline-light">Modo</button></li>
+        <li class="nav-item">
+          <a class="nav-link" href="#inicio">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#quienes">Quiénes somos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#servicios">Servicios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#apis">APIs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contacto">Contacto</a>
+        </li>
+        <li class="nav-item">
+          <button id="toggleTheme" class="btn btn-outline-light ms-3">Modo</button>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
 
-<section class="container py-5">
-
-  <div class="row mt-4 align-items-start gy-4">
+<section class="container py-5" id="inicio">
+  <div class="row mt-5 align-items-start gy-4">
 
     <!-- PANEL LOGIN -->
     <div class="col-lg-5">
-      <div class="card shadow-lg p-4 h-100 text-center hover-card" id="authCard">
+      <div class="card shadow-lg border-0 p-4 h-100 text-center" id="authCard">
         <h4 class="mb-3">Cuenta de usuario</h4>
+
         <div id="userPanel" class="d-none">
           <img id="userPhoto" class="rounded-circle mb-3" width="90" height="90"/>
           <h5 id="userName"></h5>
           <p id="userEmail" class="text-muted"></p>
           <button id="logoutBtn" class="btn btn-outline-danger mt-2">Cerrar sesión</button>
         </div>
+
         <div id="loginPanel">
           <p class="mb-3">Inicia sesión para guardar tus datos en la nube</p>
-          <button id="googleLogin" class="google-btn">
-            <img src="images/google-icon.png" alt="Google" width="20" height="20" class="me-2"> Iniciar con Google
-          </button>
+          <div class="d-flex justify-content-center">
+            <button id="googleLogin" class="btn btn-light w-75 d-flex align-items-center justify-content-center">
+              <img src="images/google-icon.png" width="20" class="me-2"> Iniciar con Google
+            </button>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- GEOLOCALIZACIÓN -->
     <div class="col-lg-7">
-      <div class="card shadow-lg p-4 text-center h-100 hover-card" id="geoCard">
+      <div class="card shadow-lg border-0 p-4 text-center h-100 hover-effect">
         <h4 class="mb-3">Tu ubicación en tiempo real</h4>
         <div id="status" class="mb-3">Solicitando ubicación precisa...</div>
-        <div id="loader" class="mb-3"></div>
+        <div id="loader"></div>
         <div id="location" class="fs-5 fw-semibold"></div>
         <div id="weather" class="mt-3 fs-5"></div>
       </div>
     </div>
 
   </div>
-
-  <!-- BLOQUES DE APIs -->
-  <div class="row mt-5 g-4 text-center" id="apisSection">
-    <div class="col-6 col-md-2">
-      <div class="card api-card" onclick="toggleDescription(0)">Redes Sociales</div>
-      <div class="api-desc d-none" id="desc0">Descripción de Redes Sociales.</div>
-    </div>
-    <div class="col-6 col-md-2">
-      <div class="card api-card" onclick="toggleDescription(1)">Streaming</div>
-      <div class="api-desc d-none" id="desc1">Descripción de Streaming.</div>
-    </div>
-    <div class="col-6 col-md-2">
-      <div class="card api-card" onclick="toggleDescription(2)">Base de Datos</div>
-      <div class="api-desc d-none" id="desc2">Descripción de Base de Datos.</div>
-    </div>
-    <div class="col-6 col-md-2">
-      <div class="card api-card" onclick="toggleDescription(3)">Plataformas Online</div>
-      <div class="api-desc d-none" id="desc3">Descripción de Plataformas Online.</div>
-    </div>
-    <div class="col-6 col-md-2">
-      <div class="card api-card" onclick="toggleDescription(4)">Geolocalización</div>
-      <div class="api-desc d-none" id="desc4">Descripción de Geolocalización.</div>
-    </div>
-  </div>
-
-  <!-- QUIENES SOMOS -->
-  <div id="quienes-somos" class="content-block my-5">
-    <h3>Quienes somos</h3>
-    <p>Somos un equipo enfocado en integrar APIs de manera elegante y funcional para mejorar la experiencia web.</p>
-  </div>
-
-  <!-- SERVICIOS -->
-  <div id="servicios" class="content-block my-5">
-    <h3>Servicios</h3>
-    <p>Ofrecemos asesorías para implementar APIs en sitios web, incluyendo geolocalización, redes sociales y plataformas online.</p>
-  </div>
-
-  <!-- CONTACTO -->
-  <div id="contacto" class="content-block my-5">
-    <h3>Contacto</h3>
-    <button class="btn btn-dark mb-2" onclick="window.location.href='mailto:karlaheer050922@gmail.com?subject=Hola, quiero asesorías para implementar una API en mi web'">Enviar Correo</button>
-    <button class="btn btn-primary mb-2" onclick="window.open('https://m.me/giiyae','_blank')">Messenger</button>
-    <button class="btn btn-pink mb-2" onclick="window.open('https://instagram.com/giiyae','_blank')">Instagram</button>
-  </div>
-
 </section>
 
-<script type="module" src="auth.js"></script>
+<!-- APIS -->
+<section class="container py-5" id="apis">
+  <div class="row g-4 justify-content-center">
+    <div class="col-12 col-md-6 col-lg-2">
+      <div class="card api-card" onclick="toggleDescription(1)">
+        Redes Sociales
+        <div class="d-none mt-2 p-2 bg-white text-dark" id="desc1">
+          Descripción de la API Redes Sociales...
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-2">
+      <div class="card api-card" onclick="toggleDescription(2)">
+        Streaming
+        <div class="d-none mt-2 p-2 bg-white text-dark" id="desc2">
+          Descripción de la API Streaming...
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-2">
+      <div class="card api-card" onclick="toggleDescription(3)">
+        Plataformas Online
+        <div class="d-none mt-2 p-2 bg-white text-dark" id="desc3">
+          Descripción de la API Plataformas Online...
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-2">
+      <div class="card api-card" onclick="toggleDescription(4)">
+        Bases de Datos
+        <div class="d-none mt-2 p-2 bg-white text-dark" id="desc4">
+          Descripción de la API Bases de Datos...
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-2">
+      <div class="card api-card" onclick="toggleDescription(5)">
+        Geolocalización
+        <div class="d-none mt-2 p-2 bg-white text-dark" id="desc5">
+          Descripción de la API Geolocalización...
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="container py-5" id="contacto">
+  <h4>Contacto</h4>
+  <p>Envíame un correo:</p>
+  <button class="btn btn-outline-primary mb-2" onclick="window.location.href='mailto:karlaheer050922@gmail.com?subject=Hola&body=Hola, quiero asesorías para implementar una API en mi web'">Enviar Correo</button>
+  <p>Redes sociales:</p>
+  <div class="d-flex gap-2">
+    <a href="https://m.me/giiyae" target="_blank" class="btn btn-primary">Messenger</a>
+    <a href="https://www.instagram.com/giiyae" target="_blank" class="btn btn-pink">Instagram</a>
+  </div>
+</section>
+
 <script type="module" src="app.js"></script>
-<script type="module" src="social.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
+

@@ -27,6 +27,9 @@ toggleThemeBtn?.addEventListener("click", () => {
   document.body.classList.toggle("dark");
 });
 
+// --- Refrescar página al dar click en "Prueba de APIs" ---
+refreshPageBtn?.addEventListener("click", () => location.reload());
+
 // --- Detectar usuario ---
 onAuthStateChanged(auth, user => {
   const loginPanel = document.getElementById("loginPanel");
@@ -37,6 +40,10 @@ onAuthStateChanged(auth, user => {
     document.getElementById("userPhoto").src = user.photoURL || "images/default.png";
     document.getElementById("userName").textContent = user.displayName || "Usuario";
     document.getElementById("userEmail").textContent = user.email || "Sin email";
+
+    if(document.body.classList.contains("dark")){
+      document.getElementById("userEmail").style.color = "white";
+    }
   }else{
     loginPanel.classList.remove("d-none");
     userPanel.classList.add("d-none");
