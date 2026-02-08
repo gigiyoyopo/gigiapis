@@ -194,3 +194,22 @@ section{
 .navbar-toggler-icon{
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='3' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
 }
+
+#githubSection{
+  border-radius: 18px;
+  background: white;
+}
+
+body.dark #githubSection{
+  background:#62152d;
+  color:white;
+}
+
+#devResults .card{
+  border-radius: 14px;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+#devResults .card:hover{
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+}

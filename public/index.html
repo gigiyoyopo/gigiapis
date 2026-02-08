@@ -111,17 +111,19 @@
   <div id="youtubeVideos" class="row g-4 justify-content-center">
     <div class="text-center">Cargando videos...</div>
   </div>
-</section>
 
-<div class="col-12 col-md-6 col-lg-2">
+  <div class="col-12 col-md-6 col-lg-2">
   <div class="card api-card" onclick="toggleDescription(1)">
     <div class="api-title">Redes Sociales</div>
 
-    <div class="api-desc d-none" id="desc1">
+    <!-- API GitHub: Buscador de desarrolladores TI -->
+<div class="container mt-5">
+  <div class="card shadow-lg p-4 hover-card" id="githubSection">
+    
+    <h3 class="text-center mb-3">Buscador de desarrolladores TI (GitHub API)</h3>
 
-      <p><strong>Buscador de desarrolladores TI con GitHub API</strong></p>
-
-      <div class="mb-3">
+    <div class="row justify-content-center mb-3">
+      <div class="col-md-6">
         <input 
           type="text" 
           id="devSearch" 
@@ -129,16 +131,20 @@
           placeholder="Ej: javascript mexico react"
         >
       </div>
-
-      <div class="text-center mb-3">
-        <button class="btn btn-dark" onclick="searchDevs()">Buscar</button>
+      <div class="col-md-2 text-center">
+        <button class="btn btn-dark w-100" onclick="searchDevs()">Buscar</button>
       </div>
-
-      <div id="devResults" class="row g-3"></div>
-
     </div>
+
+    <div id="devResults" class="row g-4 justify-content-center"></div>
+
   </div>
 </div>
+
+  </div>
+</div>
+
+</section>
 
 
 <!-- APIS -->
