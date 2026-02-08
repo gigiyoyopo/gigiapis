@@ -153,7 +153,7 @@ async function searchDevs() {
 
 function enviarCorreo() {
   const correo = "karlaheer050922@gmail.com";
-  const asunto = "Hola";
+  const asunto = "Hola desde gigiAPIs";
   const mensaje = `
 Hola,
 
