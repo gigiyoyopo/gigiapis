@@ -7,24 +7,16 @@ body {
   transition: all 0.3s ease;
 }
 
+/* Navbar */
 .navbar {
   background: #330000 !important;
   font-weight: 600;
   font-size: 1.1rem;
 }
-.navbar a.nav-link {
-  color: white !important;
-}
-.navbar a.nav-link:hover {
-  color: #ff9ec2 !important;
-}
-
-.navbar-toggler {
-  border-color: #fff;
-}
-.navbar-toggler-icon {
-  filter: invert(1);
-}
+.navbar a.nav-link { color: white !important; }
+.navbar a.nav-link:hover { color: #ff9ec2 !important; }
+.navbar-toggler { border-color: #fff; }
+.navbar-toggler-icon { filter: invert(1); }
 
 /* Hover tarjeta login y geo */
 .hover-card {
@@ -37,8 +29,8 @@ body {
 
 /* API Cards */
 .api-card {
-  background-color: #ffffff; /* fondo blanco en modo claro */
-  color: #330000; 
+  background-color: #ffffff;
+  color: #330000;
   padding: 25px 10px;
   text-align: center;
   border-radius: 14px;
@@ -55,7 +47,7 @@ body {
   margin-top: 0.5rem;
   padding: 10px;
   border-radius: 10px;
-  background: white;
+  background: #ffe0f5;
   color: #330000;
   font-family: 'Segoe UI', sans-serif;
   text-align: left;
@@ -75,82 +67,33 @@ body {
   align-items: center;
   justify-content: center;
 }
-.google-btn img {
-  margin-right: 8px;
-}
-
-#authCard, #geoCard {
-  border-radius: 18px;
-  padding: 20px;
-}
+.google-btn img { margin-right: 8px; }
+#authCard, #geoCard { border-radius: 18px; padding: 20px; }
 
 /* Contenido secciones */
-.content-block {
-  background:white;
-  border: 1px solid #62152d;
-  padding: 25px;
-  border-radius: 20px;
-  transition:0.3s;
-}
+.content-block { background:white; border: 1px solid #62152d; padding: 25px; border-radius: 20px; transition:0.3s; }
 
 /* Botones redes */
-.btn-pink {
-  background-color: #ff69b4;
-  color: white;
-  border: none;
-}
-.btn-pink:hover {
-  background-color: #c33b80;
-  color: white;
-}
+.btn-pink { background-color: #ff69b4; color: white; border: none; }
+.btn-pink:hover { background-color: #c33b80; color: white; }
 
 /* Loader */
-#loader {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
+#loader { display:flex; justify-content:center; align-items:center; }
 
 /* Botones de contacto centrados y tamaño reducido */
-#contacto .btn {
-  width: 75%;
-  max-width: 250px;
-  margin: 0 auto;
-  display: block;
-}
+#contacto .btn { width: 75%; max-width: 250px; margin: 0 auto; display: block; }
 
 /* Dark mode */
 body.dark {
   background:#330000;
   color:white;
 }
-body.dark .navbar {
-  background:#952f57 !important;
-}
-body.dark .content-block {
-  background:#62152d;
-  color:white;
-}
-body.dark #authCard, body.dark #geoCard {
-  background:#62152d;
-  color:white;
-}
-body.dark .api-card {
-  background:#ca668b;
-  color:white;
-}
-body.dark .api-desc {
-  background:#ff9ec2;
-  color:white;
-}
-
-/* Asegura que el correo del usuario sea visible en dark mode */
-body.dark #userEmail {
-  color: white !important;
-}
+body.dark .navbar { background:#952f57 !important; }
+body.dark .content-block { background:#62152d; color:white; }
+body.dark #authCard, body.dark #geoCard { background:#62152d; color:white; }
+body.dark .api-card { background:#ca668b; color:white; }
+body.dark .api-desc { background:#ff9ec2; color:white; }
+body.dark #userEmail { color: white !important; }
 
 /* Hover efecto general */
-.hover-effect:hover {
-  transform: translateY(-5px);
-  transition: 0.3s;
-}
+.hover-effect:hover { transform: translateY(-5px); transition: 0.3s; }
