@@ -1,77 +1,134 @@
-/* BODY */
+/* BODY & TIPOGRAFÍA */
 body{
-  background: #f4f7fb; /* azul muy claro casi blanco */
-  min-height: 100vh;
-  color: #1b2a41; /* azul oscuro elegante para texto */
+  background: #fff0f6;
+  min-height:100vh;
+  color:#2b0d1b;
   font-family: 'Segoe UI', sans-serif;
+  transition: all 0.4s ease;
 }
 
 /* NAVBAR */
 .navbar{
-  background: #0d1b2a !important; /* azul muy oscuro elegante */
+  background: linear-gradient(135deg,#ffcade,#f497c2);
+  font-weight:700;
+  padding:1rem 2rem;
+  box-shadow:0 5px 25px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+.navbar a.nav-link{
+  color:white;
+  font-weight:500;
+  transition:0.3s;
+}
+.navbar a.nav-link:hover{
+  color:#ffd6eb;
+  transform: translateY(-2px);
 }
 
-/* TARJETAS PRINCIPALES */
-.card{
-  border: none;
-  border-radius: 18px;
-  background: #ffffff;
-  box-shadow: 0 10px 25px rgba(13,27,42,0.08);
-  transition: transform 0.3s ease;
+/* BOTÓN MODO CLARO/OSCURO */
+#toggleTheme{
+  border-radius:10px;
+  font-weight:600;
+  transition:0.3s;
 }
-
-.card:hover{
-  transform: translateY(-5px);
-}
-
-/* TARJETAS DE APIS */
-.api-card{
-  padding: 30px 10px;
-  font-weight: bold;
-  font-size: 18px;
-  transition: 0.3s;
-  cursor: pointer;
-  background: #e8eef7; /* azul claro elegante */
-  color: #0d1b2a;
-  border-radius: 14px;
-}
-
-.api-card:hover{
-  transform: translateY(-8px);
-  background: #d6e4f5;
-  box-shadow: 0 12px 20px rgba(13,27,42,0.15);
-}
-
-/* GEOLOCALIZACIÓN */
-#location, #weather{
-  color: #0d1b2a;
-  font-size: 18px;
-}
-
-#status{
-  color: #415a77;
-  font-weight: 500;
-}
-
-/* LOADER */
-#loader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+#toggleTheme:hover{
+  transform: scale(1.05);
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
 
 /* PANEL LOGIN */
 #authCard{
-  background: linear-gradient(135deg,#0d1b2a,#1b263b);
-  color: white;
+  background: linear-gradient(135deg,#f497c2,#ffcade);
+  color:white;
+  border-radius:20px;
+  transition: all 0.4s ease;
 }
-
 #authCard button{
-  border-radius: 10px;
-  font-weight: 600;
+  border-radius:10px;
+  font-weight:600;
+  transition:0.3s;
+}
+#authCard button:hover{
+  transform: translateY(-3px);
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+#userPhoto{
+  border:4px solid white;
+  object-fit:cover;
 }
 
-#userPhoto{
-  border: 4px solid white;
-  object-fit: cover;
+/* GEOLOCALIZACIÓN */
+#location, #weather{
+  color:#2b0d1b;
+  font-size:18px;
+}
+#status{
+  color:#660033;
+  font-weight:500;
+}
+#loader{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-weight:600;
+}
+
+/* BLOQUES DE CONTENIDO */
+.content-block{
+  background: #ffe6f0;
+  padding:30px;
+  border-radius:20px;
+  transition:0.3s;
+}
+.content-block:hover{
+  transform: translateY(-5px);
+  box-shadow:0 12px 20px rgba(0,0,0,0.1);
+}
+
+/* TARJETAS APIs */
+.api-card{
+  padding:30px 10px;
+  font-weight:bold;
+  font-size:18px;
+  transition:0.3s;
+  cursor:pointer;
+  background: #ffd6eb;
+  color:#2b0d1b;
+  border-radius:14px;
+}
+.api-card:hover{
+  transform: translateY(-8px);
+  background: #ffb6d0;
+  box-shadow:0 12px 20px rgba(0,0,0,0.15);
+}
+
+/* FOOTER */
+footer{
+  background:#f497c2;
+  color:white;
+  font-weight:500;
+  transition:all 0.4s ease;
+  border-radius:10px;
+}
+
+/* Modo Oscuro */
+body.dark{
+  background:#1b0d1b;
+  color:#fcd6eb;
+}
+body.dark #mainNavbar{
+  background: linear-gradient(135deg,#660033,#990066);
+}
+body.dark #authCard{
+  background: linear-gradient(135deg,#990066,#660033);
+}
+body.dark .content-block{
+  background:#660033;
+}
+body.dark .api-card{
+  background:#990066;
+  color:white;
+}
+body.dark footer{
+  background:#660033;
 }
