@@ -1,10 +1,5 @@
 import { auth, db } from "./firebase.js";
-import { 
-  GoogleAuthProvider,
-  signInWithPopup, 
-  onAuthStateChanged, 
-  signOut 
-} from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+import { GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -31,16 +26,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = await response.json();
         const components = data.results[0].components;
 
-        const municipio = components.city||components.town||components.village||components.county||"Municipio desconocido";
-        const estado = components.state||"Estado desconocido";
-        const pais = components.country||"País desconocido";
+        const municipio = components.city||components.town||components.village||components.county||"Desconocido";
+        const estado = components.state||"Desconocido";
+        const pais = components.country||"Desconocido";
 
-        locationDiv.innerHTML = `<strong>Ubicación detectada:</strong><br>${municipio}, ${estado}, ${pais}`;
+        locationDiv.innerHTML = `<strong>Ubicación:</strong> ${municipio}, ${estado}, ${pais}`;
         status.style.display = "none";
 
-        try{
-          await addDoc(collection(db,"ubicaciones"), {municipio,estado,pais,fecha:new Date()});
-        }catch(e){console.warn("No se pudo guardar en Firestore");}
+        try{ await addDoc(collection(db,"ubicaciones"), {municipio,estado,pais,fecha:new Date()}); }
+        catch(e){ console.warn("No se pudo guardar en Firestore"); }
       }catch(e){
         locationDiv.textContent = "No se pudo obtener la ubicación textual.";
         status.style.display = "none";
@@ -55,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const temp = weatherData.main.temp;
         const desc = weatherData.weather[0].description;
 
-        weatherDiv.innerHTML = `🌤 <strong>Clima actual en tu zona:</strong><br>${temp}°C • ${desc}`;
+        weatherDiv.innerHTML = `🌤 <strong>Clima actual:</strong> ${temp}°C • ${desc}`;
       }catch(e){
         weatherDiv.textContent = "No se pudo obtener el clima.";
       }
@@ -71,8 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Modo claro/oscuro
   const toggleTheme = document.getElementById("toggleTheme");
-  toggleTheme.addEventListener("click", ()=>{
-    document.body.classList.toggle("dark");
-  });
-});
+  toggleTheme.addEventListener("click", ()=>{ document.body.classList.toggle("dark"); });
 
+});

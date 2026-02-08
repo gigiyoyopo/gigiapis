@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Prueba de APIs</title>
 
@@ -11,18 +11,25 @@
   <!-- Estilos -->
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
   <div class="container">
     <a class="navbar-brand fw-bold" href="#" onclick="location.reload()">Prueba de APIs</a>
-    <button class="btn btn-outline-light ms-auto me-2" id="toggleTheme">Modo Claro/Oscuro</button>
-    <div class="d-flex gap-3">
-      <a href="#about" class="nav-link">Quienes somos</a>
-      <a href="#services" class="nav-link">Servicios</a>
-      <a href="#contact" class="nav-link">Contacto</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+      <ul class="navbar-nav align-items-center">
+        <li class="nav-item"><a href="#about" class="nav-link">Quienes somos</a></li>
+        <li class="nav-item"><a href="#services" class="nav-link">Servicios</a></li>
+        <li class="nav-item"><a href="#contact" class="nav-link">Contacto</a></li>
+        <li class="nav-item ms-3">
+          <button id="toggleTheme" class="btn btn-outline-light">Modo Claro/Oscuro</button>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>
@@ -45,8 +52,8 @@
 
         <div id="loginPanel">
           <p class="mb-3">Inicia sesión para guardar tus datos en la nube</p>
-          <button id="googleLogin" class="btn btn-dark w-100 mb-2">
-            Iniciar con Google
+          <button id="googleLogin" class="btn google-btn w-100 mb-2">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="20" style="margin-right:8px;"> Iniciar con Google
           </button>
         </div>
       </div>
@@ -66,7 +73,7 @@
   </div>
 </section>
 
-<!-- BLOQUES DE CONTENIDO FUTURO -->
+<!-- BLOQUES DE CONTENIDO -->
 <section class="container py-5" id="about">
   <div class="row g-4">
     <div class="col-md-4">
@@ -106,13 +113,6 @@
       <div class="card api-card">Base de Datos</div>
     </div>
   </div>
-
-  <div class="text-center my-4">
-    <input type="text" id="socialUrl" placeholder="https://facebook.com/tuPagina" class="form-control mb-2">
-    <button id="fetchSocial" class="btn btn-dark">Obtener datos de red social</button>
-  </div>
-
-  <div id="socialResult" class="p-3"></div>
 </section>
 
 <!-- FOOTER -->
@@ -120,9 +120,5 @@
   <p>&copy; 2026 Prueba de APIs. Todos los derechos reservados.</p>
 </footer>
 
-<script type="module" src="app.js"></script>
 <script type="module" src="auth.js"></script>
-<script type="module" src="social.js"></script>
-
-</body>
-</html>
+<script type="module" src="app.js"></script>

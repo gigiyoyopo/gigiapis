@@ -1,26 +1,26 @@
 /* BODY & TIPOGRAFÍA */
 body{
-  background: #fff0f6;
+  background: #ffb6d9; /* rosa claro y fuerte */
   min-height:100vh;
-  color:#2b0d1b;
+  color:#330022;
   font-family: 'Segoe UI', sans-serif;
   transition: all 0.4s ease;
 }
 
 /* NAVBAR */
 .navbar{
-  background: linear-gradient(135deg,#ffcade,#f497c2);
+  background: linear-gradient(135deg,#ff69b4,#ffb6d9);
   font-weight:700;
   padding:1rem 2rem;
   box-shadow:0 5px 25px rgba(0,0,0,0.08);
   transition: all 0.3s ease;
 }
-.navbar a.nav-link{
+.navbar .nav-link{
   color:white;
   font-weight:500;
   transition:0.3s;
 }
-.navbar a.nav-link:hover{
+.navbar .nav-link:hover{
   color:#ffd6eb;
   transform: translateY(-2px);
 }
@@ -38,17 +38,23 @@ body{
 
 /* PANEL LOGIN */
 #authCard{
-  background: linear-gradient(135deg,#f497c2,#ffcade);
+  background: linear-gradient(135deg,#ff69b4,#ffb6d9);
   color:white;
   border-radius:20px;
   transition: all 0.4s ease;
 }
-#authCard button{
-  border-radius:10px;
+.google-btn{
+  background:white;
+  color:#333;
   font-weight:600;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  border-radius:10px;
   transition:0.3s;
 }
-#authCard button:hover{
+.google-btn:hover{
   transform: translateY(-3px);
   box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
@@ -59,7 +65,7 @@ body{
 
 /* GEOLOCALIZACIÓN */
 #location, #weather{
-  color:#2b0d1b;
+  color:#330022;
   font-size:18px;
 }
 #status{
@@ -75,7 +81,7 @@ body{
 
 /* BLOQUES DE CONTENIDO */
 .content-block{
-  background: #ffe6f0;
+  background: #ffc0df;
   padding:30px;
   border-radius:20px;
   transition:0.3s;
@@ -92,35 +98,35 @@ body{
   font-size:18px;
   transition:0.3s;
   cursor:pointer;
-  background: #ffd6eb;
-  color:#2b0d1b;
+  background: #ff8fc4;
+  color:#330022;
   border-radius:14px;
 }
 .api-card:hover{
   transform: translateY(-8px);
-  background: #ffb6d0;
+  background: #ff66a8;
   box-shadow:0 12px 20px rgba(0,0,0,0.15);
 }
 
 /* FOOTER */
 footer{
-  background:#f497c2;
+  background:#ff69b4;
   color:white;
   font-weight:500;
-  transition:all 0.4s ease;
   border-radius:10px;
+  transition:all 0.4s ease;
 }
 
 /* Modo Oscuro */
 body.dark{
-  background:#1b0d1b;
-  color:#fcd6eb;
+  background:#330022;
+  color:#ffb6d9;
 }
 body.dark #mainNavbar{
-  background: linear-gradient(135deg,#660033,#990066);
+  background: linear-gradient(135deg,#990033,#660033);
 }
 body.dark #authCard{
-  background: linear-gradient(135deg,#990066,#660033);
+  background: linear-gradient(135deg,#660033,#990033);
 }
 body.dark .content-block{
   background:#660033;
@@ -131,4 +137,17 @@ body.dark .api-card{
 }
 body.dark footer{
   background:#660033;
+}
+
+/* RESPONSIVO: Botón y nav */
+@media (max-width: 991px){
+  #toggleTheme{
+    margin-top:0.5rem;
+    width:100%;
+  }
+  .navbar-collapse{
+    background: linear-gradient(135deg,#ff69b4,#ffb6d9);
+    padding:1rem;
+    border-radius:10px;
+  }
 }
