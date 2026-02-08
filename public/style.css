@@ -1,3 +1,4 @@
+/* GENERAL */
 body {
   background: #ffe0ff;
   min-height:100vh;
@@ -36,8 +37,8 @@ body {
 
 /* API Cards */
 .api-card {
-  background-color: #ffe0ff; 
-  color: #89004f; 
+  background-color: #ffffff; /* fondo blanco en modo claro */
+  color: #330000; 
   padding: 25px 10px;
   text-align: center;
   border-radius: 14px;
@@ -110,6 +111,14 @@ body {
   align-items:center;
 }
 
+/* Botones de contacto centrados y tamaño reducido */
+#contacto .btn {
+  width: 75%;
+  max-width: 250px;
+  margin: 0 auto;
+  display: block;
+}
+
 /* Dark mode */
 body.dark {
   background:#330000;
@@ -133,6 +142,11 @@ body.dark .api-card {
 body.dark .api-desc {
   background:#ff9ec2;
   color:white;
+}
+
+/* Asegura que el correo del usuario sea visible en dark mode */
+body.dark #userEmail {
+  color: white !important;
 }
 
 /* Hover efecto general */

@@ -23,10 +23,31 @@ logoutBtn?.addEventListener("click", async () => {
 // Cambiar tema
 toggleThemeBtn?.addEventListener("click", () => {
   document.body.classList.toggle("dark");
+
+  // Actualiza color correo usuario
   const userEmail = document.getElementById("userEmail");
   if(userEmail){
-    userEmail.style.color = document.body.classList.contains("dark") ? "white" : "";
+    userEmail.style.color = document.body.classList.contains("dark") ? "white" : "#6c757d";
   }
+
+  // Actualiza colores de API cards
+  const apiCards = document.querySelectorAll(".api-card");
+  apiCards.forEach(card => {
+    if(document.body.classList.contains("dark")){
+      card.style.backgroundColor = "#ca668b";
+      card.style.color = "white";
+    } else {
+      card.style.backgroundColor = "#ffffff";
+      card.style.color = "#330000";
+    }
+  });
+
+  // Actualiza colores de descripciones
+  const apiDescs = document.querySelectorAll(".api-desc");
+  apiDescs.forEach(desc => {
+    desc.style.backgroundColor = document.body.classList.contains("dark") ? "#ff9ec2" : "#ffffff";
+    desc.style.color = document.body.classList.contains("dark") ? "white" : "#330000";
+  });
 });
 
 // Refrescar página
@@ -42,8 +63,11 @@ onAuthStateChanged(auth, user => {
     document.getElementById("userPhoto").src = user.photoURL || "images/default.png";
     document.getElementById("userName").textContent = user.displayName || "Usuario";
     document.getElementById("userEmail").textContent = user.email || "Sin email";
+
     if(document.body.classList.contains("dark")){
       document.getElementById("userEmail").style.color = "white";
+    } else {
+      document.getElementById("userEmail").style.color = "#6c757d";
     }
   }else{
     loginPanel.classList.remove("d-none");
