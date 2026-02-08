@@ -2,19 +2,16 @@
 import { auth } from "./firebase.js";
 import { 
   GoogleAuthProvider, 
-  TwitterAuthProvider,
   signInWithPopup, 
   onAuthStateChanged, 
   signOut 
 } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
-// --- Providers ---
+// --- Provider ---
 const googleProvider = new GoogleAuthProvider();
-const twitterProvider = new TwitterAuthProvider();
 
 // --- Botones ---
 const googleBtn = document.getElementById("googleLogin");
-const twitterBtn = document.getElementById("twitterLogin");
 const logoutBtn = document.getElementById("logoutBtn");
 
 // --- LOGIN GOOGLE ---
@@ -24,16 +21,6 @@ googleBtn?.addEventListener("click", async () => {
   } catch (err) {
     console.error("Error login con Google:", err);
     alert("No se pudo iniciar sesión con Google.");
-  }
-});
-
-// --- LOGIN TWITTER ---
-twitterBtn?.addEventListener("click", async () => {
-  try {
-    await signInWithPopup(auth, twitterProvider);
-  } catch (err) {
-    console.error("Error login con Twitter:", err);
-    alert("Error al iniciar sesión con Twitter. Revisa si tu cuenta es tester o si la app está en Live.");
   }
 });
 
