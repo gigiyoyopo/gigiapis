@@ -19,38 +19,41 @@
       <img src="images/logo.png" alt="gigiAPIs" width="35" height="35" class="me-2">
       gigiAPIs
     </a>
-
     <!-- Botón hamburguesa -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Offcanvas -->
-    <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasNavbar">
+    <!-- Offcanvas (móvil) que se comporta como navbar en pantallas grandes -->
+    <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title">gigiAPIs</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">gigiAPIs</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
-        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-4">
-          <li class="nav-item"><a class="nav-link" href="#inicio" data-bs-dismiss="offcanvas">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link" href="#quienes" data-bs-dismiss="offcanvas">Quiénes somos</a></li>
-          <li class="nav-item"><a class="nav-link" href="#apoyo" data-bs-dismiss="offcanvas">Apoyo</a></li>
-          <li class="nav-item"><a class="nav-link" href="#apis" data-bs-dismiss="offcanvas">APIs</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contacto" data-bs-dismiss="offcanvas">Contacto</a></li>
-          <li class="nav-item">
-            <button id="toggleTheme" class="theme-btn">🌓</button>
-          </li>
+        <ul class="navbar-nav flex-grow-1 justify-content-lg-end">
+          <li class="nav-item"><a class="nav-link nav-scroll" href="#inicio" data-bs-dismiss="offcanvas">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link nav-scroll" href="#quienes" data-bs-dismiss="offcanvas">Quiénes somos</a></li>
+          <li class="nav-item"><a class="nav-link nav-scroll" href="#apoyo" data-bs-dismiss="offcanvas">Apoyo</a></li>
+          <li class="nav-item"><a class="nav-link nav-scroll" href="#apis" data-bs-dismiss="offcanvas">APIs</a></li>
+          <li class="nav-item"><a class="nav-link nav-scroll" href="#contacto" data-bs-dismiss="offcanvas">Contacto</a></li>
+
+          <li class="nav-item mt-2 text-start">
+  <button id="toggleTheme" class="theme-btn">🌓</button>
+</li>
         </ul>
       </div>
     </div>
   </div>
 </nav>
 
+
 <!-- INICIO -->
 <section class="container py-5 mt-5" id="inicio">
   <div class="row mt-5 align-items-start gy-4">
 
+    <!-- PANEL LOGIN -->
     <div class="col-lg-5">
       <div class="card shadow-lg border-0 p-4 h-100 text-center" id="authCard">
         <h4 class="mb-3">Cuenta de usuario</h4>
@@ -73,6 +76,7 @@
       </div>
     </div>
 
+    <!-- GEOLOCALIZACIÓN -->
     <div class="col-lg-7">
       <div class="card shadow-lg border-0 p-4 text-center h-100 hover-card" id="geoCard">
         <h4 class="mb-3">Tu ubicación en tiempo real</h4>
@@ -86,46 +90,92 @@
   </div>
 </section>
 
+<!-- QUIÉNES SOMOS -->
+<section class="container py-5" id="quienes">
+  <h4 class="mb-3 text-center">Quiénes somos</h4>
+  <div class="row g-4 justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="card api-card hover-effect">
+        <strong class="text-center d-block">
+          Somos estudiantes de la Universidad Tecnológica de Tecámac, comprometidos con la explicación práctica de la implementación de APIs de terceros mediante ejemplos claros y funcionales.
+        </strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APOYO -->
+<section class="container py-5" id="apoyo">
+  <h4 class="mb-3 text-center">Apoyo</h4>
+  <div class="row g-4 justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="card api-card hover-effect">
+        <strong class="text-center d-block">
+          En esta sección implementaremos una API de YouTube como streaming de tutoriales para aprender a integrar APIs de terceros.
+        </strong>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- APIS -->
 <section class="container py-5" id="apis">
   <div class="row g-4 justify-content-center">
-
     <div class="col-12 col-md-6 col-lg-2">
       <div class="card api-card" onclick="toggleDescription(1)">
-        <div class="api-title">Redes Sociales</div>
-        <div class="api-desc d-none" id="desc1">...</div>
+  <div class="api-title">Redes Sociales</div>
+        <div class="api-desc d-none" id="desc1">
+          Las APIs de redes sociales permiten interactuar con plataformas como Facebook, Instagram o Twitter. Por ejemplo, se pueden extraer publicaciones o estadísticas de usuarios. Actualmente aún no se implementa en gigiAPIs.
+        </div>
       </div>
     </div>
-
     <div class="col-12 col-md-6 col-lg-2">
       <div class="card api-card" onclick="toggleDescription(2)">
-        <div class="api-title">Streaming</div>
-        <div class="api-desc d-none" id="desc2">...</div>
+  <div class="api-title">Streaming</div>
+        <div class="api-desc d-none" id="desc2">
+          Las APIs de streaming facilitan la reproducción de contenido multimedia desde plataformas como YouTube o Spotify. Actualmente aún no se implementa en gigiAPIs.
+        </div>
       </div>
     </div>
-
     <div class="col-12 col-md-6 col-lg-2">
       <div class="card api-card" onclick="toggleDescription(3)">
-        <div class="api-title">Plataformas Online</div>
-        <div class="api-desc d-none" id="desc3">...</div>
+  <div class="api-title">Plataformas Online</div>
+        <div class="api-desc d-none" id="desc3">
+          Las APIs de plataformas online permiten interactuar con servicios como marketplaces o plataformas educativas, para acceder a datos y funcionalidades. En gigiAPIs se utiliza OpenWeather para clima.
+        </div>
       </div>
     </div>
-
     <div class="col-12 col-md-6 col-lg-2">
       <div class="card api-card" onclick="toggleDescription(4)">
-        <div class="api-title">Bases de datos</div>
-        <div class="api-desc d-none" id="desc4">...</div>
+  <div class="api-title">Bases de datos</div>
+        <div class="api-desc d-none" id="desc4">
+          Las APIs de bases de datos permiten consultar y manipular datos de manera programática. En gigiAPIs se implementa ejemplo de integración con Firebase como backend.
+        </div>
       </div>
     </div>
-
     <div class="col-12 col-md-6 col-lg-2">
       <div class="card api-card" onclick="toggleDescription(5)">
-        <div class="api-title">Geolocalización</div>
-        <div class="api-desc d-none" id="desc5">...</div>
+  <div class="api-title">Geolocalización</div>
+        <div class="api-desc d-none" id="desc5">
+          Las APIs de geolocalización permiten obtener la ubicación del usuario en tiempo real y acceder a información relevante del entorno. Para gigiAPIs se utiliza OpenCageData para geolocalización.
+        </div>
       </div>
     </div>
-
   </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="container py-5" id="contacto">
+  <h4 class="text-center">Contacto</h4>
+  <p class="text-center">Envíame un correo:</p>
+  <div class="d-flex justify-content-center mb-3">
+    <button class="btn btn-outline-primary w-50 w-md-25" onclick="window.location.href='mailto:karlaheer050922@gmail.com?subject=Hola&body=Hola, quiero asesorías para implementar una API en mi web'">Enviar Correo</button>
+  </div>
+  <p class="text-center">Redes sociales:</p>
+  <div class="social-buttons">
+  <a href="https://m.me/giiyae" target="_blank" class="btn messenger-btn">Messenger</a>
+  <a href="https://www.instagram.com/giiyae" target="_blank" class="btn instagram-btn">Instagram</a>
+</div>
 </section>
 
 <script type="module" src="auth.js"></script>

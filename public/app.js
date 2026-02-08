@@ -1,142 +1,82 @@
 import { auth } from "./firebase.js";
-import { onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
-// Botones
-const googleBtn = document.getElementById("googleLogin");
-const logoutBtn = document.getElementById("logoutBtn");
-const toggleThemeBtn = document.getElementById("toggleTheme");
-const refreshPageBtn = document.getElementById("refreshPage");
+// ================= NAVBAR SCROLL + CIERRE OFFCANVAS =================
+document.querySelectorAll(".nav-scroll").forEach(link=>{
+  link.addEventListener("click", function(e){
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute("href"));
+    target?.scrollIntoView({behavior:"smooth"});
 
-// Login Google
-const googleProvider = new GoogleAuthProvider();
-googleBtn?.addEventListener("click", async () => {
-  try { await signInWithPopup(auth, googleProvider); }
-  catch(err){ console.error("Error login con Google", err); }
-});
-
-// Logout
-logoutBtn?.addEventListener("click", async () => {
-  try { await signOut(auth); } 
-  catch(err){ console.error(err); }
-});
-
-// Cambiar tema
-toggleThemeBtn?.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
-
-  // Actualiza color correo usuario
-  const userEmail = document.getElementById("userEmail");
-  if(userEmail){
-    userEmail.style.color = document.body.classList.contains("dark") ? "white" : "#6c757d";
-  }
-
-  // Actualiza colores de API cards
-  const apiCards = document.querySelectorAll(".api-card");
-  apiCards.forEach(card => {
-    if(document.body.classList.contains("dark")){
-      card.style.backgroundColor = "#ca668b";
-      card.style.color = "white";
-    } else {
-      card.style.backgroundColor = "#ffffff";
-      card.style.color = "#330000";
-    }
-  });
-
-  // Actualiza colores de descripciones
-  const apiDescs = document.querySelectorAll(".api-desc");
-  apiDescs.forEach(desc => {
-    desc.style.backgroundColor = document.body.classList.contains("dark") ? "#ff9ec2" : "#ffffff";
-    desc.style.color = document.body.classList.contains("dark") ? "white" : "#330000";
+    const offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('offcanvasNavbar'));
+    offcanvas?.hide();
   });
 });
 
-// Refrescar página
-refreshPageBtn?.addEventListener("click", () => location.reload());
-
-// Detectar usuario
-onAuthStateChanged(auth, user => {
-  const loginPanel = document.getElementById("loginPanel");
-  const userPanel = document.getElementById("userPanel");
-  if(user){
-    loginPanel.classList.add("d-none");
-    userPanel.classList.remove("d-none");
-    document.getElementById("userPhoto").src = user.photoURL || "images/default.png";
-    document.getElementById("userName").textContent = user.displayName || "Usuario";
-    document.getElementById("userEmail").textContent = user.email || "Sin email";
-
-    if(document.body.classList.contains("dark")){
-      document.getElementById("userEmail").style.color = "white";
-    } else {
-      document.getElementById("userEmail").style.color = "#6c757d";
-    }
-  }else{
-    loginPanel.classList.remove("d-none");
-    userPanel.classList.add("d-none");
-  }
-});
-
-// Toggle descripción APIs
+// ================= TOGGLE DESCRIPCIONES APIs =================
 window.toggleDescription = function(index){
   const desc = document.getElementById('desc'+index);
   desc.classList.toggle('d-none');
 }
 
-// Geolocalización + Clima
+// ================= TEMA =================
+const toggleThemeBtn = document.getElementById("toggleTheme");
+toggleThemeBtn?.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+});
+
+// ================= REFRESH LOGO =================
+document.getElementById("refreshPage")?.addEventListener("click", (e)=>{
+  e.preventDefault();
+  location.reload();
+});
+
+// ================= GEOLOCALIZACIÓN + CLIMA =================
 const status = document.getElementById("status");
 const loader = document.getElementById("loader");
 const locationDiv = document.getElementById("location");
 const weatherDiv = document.getElementById("weather");
 
-loader.innerHTML = "<div class='spinner-border text-dark' role='status'><span class='visually-hidden'>Loading...</span></div>";
+loader.innerHTML = "<div class='spinner-border text-dark' role='status'></div>";
 
 if(navigator.geolocation){
   navigator.geolocation.getCurrentPosition(success,error);
-}else{
-  status.textContent = "Tu navegador no soporta geolocalización";
-  loader.innerHTML = "";
 }
 
 async function success(pos){
   const lat = pos.coords.latitude;
   const lon = pos.coords.longitude;
 
-  try {
-    const geoKey = "4e7c51f2c46042caad60314486a9f31e";
-    const geoRes = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${geoKey}`);
-    const geoData = await geoRes.json();
-    const components = geoData.results[0].components;
-    const municipio = components.city || components.town || components.village || components.county || "Municipio desconocido";
-    const estado = components.state || "Estado desconocido";
-    const pais = components.country || "País desconocido";
-    locationDiv.innerHTML = `<strong>${municipio}, ${estado}, ${pais}</strong>`;
-    status.textContent = "Ubicación detectada:";
-  } catch(e){
-    console.error(e);
-    locationDiv.textContent = "No se pudo obtener la ubicación textual";
-    status.textContent = "";
-  }
+  const geoKey = "4e7c51f2c46042caad60314486a9f31e";
+  const geoRes = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${geoKey}`);
+  const geoData = await geoRes.json();
+  const c = geoData.results[0].components;
 
-  try {
-    const weatherKey = "a8298c551d4cf6e0334e10a8953e6187";
-    const weatherRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weatherKey}&units=metric&lang=es`);
-    const weatherData = await weatherRes.json();
-    const temp = weatherData.main.temp;
-    const desc = weatherData.weather[0].description;
-    const iconCode = weatherData.weather[0].icon;
-    const iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
-    weatherDiv.innerHTML = `<img src="${iconUrl}" alt="clima" style="width:50px; height:50px; vertical-align:middle;"><span style="font-weight:600; margin-left:5px;">${temp}°C • ${desc}</span>`;
-  } catch(e){
-    console.error(e);
-    weatherDiv.textContent = "No se pudo obtener el clima.";
-  }
+  locationDiv.innerHTML = `<strong>${c.city||c.town||c.county}, ${c.state}, ${c.country}</strong>`;
+  status.textContent = "Ubicación detectada:";
+
+  const weatherKey = "a8298c551d4cf6e0334e10a8953e6187";
+  const weatherRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weatherKey}&units=metric&lang=es`);
+  const w = await weatherRes.json();
+
+  weatherDiv.innerHTML = `
+    <img src="http://openweathermap.org/img/wn/${w.weather[0].icon}@2x.png" width="50">
+    <strong>${w.main.temp}°C • ${w.weather[0].description}</strong>
+  `;
 
   loader.innerHTML = "";
 }
 
-function error(err){
-  console.error(err);
-  status.textContent = "Permiso de ubicación denegado o error al obtener coordenadas.";
+function error(){
+  status.textContent = "Permiso de ubicación denegado.";
   loader.innerHTML = "";
-  locationDiv.textContent = "";
-  weatherDiv.textContent = "";
 }
+
+// ================= MOSTRAR USUARIO (SOLO VISUAL, auth.js maneja login) =================
+onAuthStateChanged(auth, user => {
+  if(user){
+    document.getElementById("userPhoto").src = user.photoURL;
+    document.getElementById("userName").textContent = user.displayName;
+    document.getElementById("userEmail").textContent = user.email;
+  }
+});
