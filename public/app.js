@@ -120,3 +120,57 @@ async function cargarVideosYouTube(){
 }
 
 cargarVideosYouTube();
+
+// API Redes Sociales (GitHub): búsqueda de desarrolladores reales en GitHub
+
+window.searchDevs = async function () {
+  const query = document.getElementById("devSearch").value.trim();
+  const resultsDiv = document.getElementById("devResults");
+
+  if (!query) return;
+
+  resultsDiv.innerHTML = "<p>Buscando desarrolladores...</p>";
+
+  try {
+    const res = await fetch(`https://api.github.com/search/users?q=${query}`);
+    const data = await res.json();
+
+    if (!data.items || data.items.length === 0) {
+      resultsDiv.innerHTML = "<p>No se encontraron resultados.</p>";
+      return;
+    }
+
+    resultsDiv.innerHTML = "";
+
+    for (let user of data.items.slice(0, 8)) {
+      const userRes = await fetch(user.url);
+      const userData = await userRes.json();
+
+      const card = `
+        <div class="col-12">
+          <div class="card p-3 shadow-sm">
+            <div class="d-flex align-items-center gap-3">
+              <img src="${userData.avatar_url}" width="70" class="rounded-circle">
+              <div>
+                <h6 class="mb-1">${userData.name || userData.login}</h6>
+                <p class="mb-1">${userData.bio || "Sin biografía"}</p>
+                <small>
+                  Repos: ${userData.public_repos} |
+                  Followers: ${userData.followers}
+                </small>
+                <br>
+                <a href="${userData.html_url}" target="_blank">Ver perfil</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      resultsDiv.innerHTML += card;
+    }
+
+  } catch (err) {
+    console.error(err);
+    resultsDiv.innerHTML = "<p>Error al buscar desarrolladores.</p>";
+  }
+};

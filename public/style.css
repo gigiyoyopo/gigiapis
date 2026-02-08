@@ -58,13 +58,6 @@ body {
   background-color: #330000 !important;
 }
 
-/* Botones Messenger e Instagram más juntos en laptop */
-@media (min-width: 800px) {
-  #contacto .d-flex {
-    gap: 6px !important;
-  }
-}
-
 /* Panel login */
 .google-btn { background:white; color: #330000; border:none; padding: 10px 15px; border-radius: 8px; font-weight:600; display: flex; align-items: center; justify-content: center; }
 .google-btn img { margin-right: 8px; }
@@ -91,13 +84,6 @@ body.dark #userEmail { color:white !important; }
   border-color: white !important;
 }
 
-.navbar-toggler-icon {
-  filter: invert(1) brightness(2);
-}
-/* =========================
-   ESTILO MODERNO NAVBAR
-========================= */
-
 /* Botón modo como icono alineado */
 .theme-btn{
   background: transparent;
@@ -119,10 +105,6 @@ body.dark #userEmail { color:white !important; }
   max-width: 320px;
   background: #330000 !important;
 }
-
-/* =========================
-   BOTONES REDES SOCIALES
-========================= */
 
 .social-buttons{
   display: flex;
@@ -173,15 +155,12 @@ body.dark #userEmail { color:white !important; }
   box-shadow: 0 8px 18px rgba(0,0,0,0.25);
 }
 
-/* En desktop que queden MUY juntos */
+/* En desktop que queden juntos */
 @media (min-width: 992px){
   .social-buttons{
     gap: 4px;
   }
 }
-/* =========================
-   NAVBAR DISTRIBUCIÓN DESKTOP
-========================= */
 
 @media (min-width: 992px){
   .offcanvas-body .navbar-nav{
@@ -201,18 +180,17 @@ section{
   scroll-margin-top: 80px;
 }
 
-/* =========================
-   TITULOS DE API EN BOLD
-========================= */
 .api-title{
   font-weight: 700;
   margin-bottom: 6px;
 }
 
-/* =========================
-   MESSENGER HOVER SIN CAMBIAR COLOR
-========================= */
 .messenger-btn:hover{
   background: #0084ff !important;
   color: white !important;
+}
+
+/* Hamburguesa blanca SIEMPRE */
+.navbar-toggler-icon{
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='3' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
 }
