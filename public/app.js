@@ -150,3 +150,17 @@ async function searchDevs() {
     results.innerHTML = "Error al buscar usuarios.";
   }
 }
+
+function enviarCorreo() {
+  const correo = "karlaheer050922@gmail.com";
+  const asunto = "Hola";
+  const mensaje = `
+Hola,
+
+Quiero asesorías para implementar una API en mi web.
+Gracias.
+`;
+
+  const mailto = `mailto:${correo}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(mensaje)}`;
+  window.location.href = mailto;
+}
