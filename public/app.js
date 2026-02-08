@@ -1,10 +1,12 @@
-// app.js
 const openCageKey = "4e7c51f2c46042caad60314486a9f31e";
 const weatherKey = "a8298c551d4cf6e0334e10a8953e6187";
 
 const status = document.getElementById("status");
 const locationDiv = document.getElementById("location");
 const weatherDiv = document.getElementById("weather");
+const loader = document.getElementById("loader");
+
+loader.style.display = "flex"; // mostrar loader al inicio
 
 // -------- GEOLOCALIZACIÓN --------
 if ("geolocation" in navigator) {
@@ -30,11 +32,13 @@ if ("geolocation" in navigator) {
 
         locationDiv.innerHTML = `<strong>Ubicación detectada:</strong><br>${municipio}, ${estado}, ${pais}`;
         status.style.display = "none";
+        loader.style.display = "none"; // ocultar loader
 
       } catch (e) {
         console.error("Error geolocalización:", e);
         locationDiv.textContent = "No se pudo obtener la ubicación.";
         status.style.display = "none";
+        loader.style.display = "none";
       }
 
       // 2️⃣ Obtener clima
@@ -58,9 +62,11 @@ if ("geolocation" in navigator) {
     (error) => {
       console.error("Error GPS:", error);
       status.textContent = "Permiso de ubicación denegado o GPS no disponible.";
+      loader.style.display = "none";
     },
     { enableHighAccuracy: true, timeout: 10000 }
   );
 } else {
   status.textContent = "Geolocalización no soportada por tu navegador.";
+  loader.style.display = "none";
 }

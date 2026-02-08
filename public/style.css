@@ -1,65 +1,77 @@
+/* BODY */
 body{
   background: #f4f7fb; /* azul muy claro casi blanco */
-  min-height:100vh;
-  color:#1b2a41; /* azul oscuro elegante para texto */
+  min-height: 100vh;
+  color: #1b2a41; /* azul oscuro elegante para texto */
   font-family: 'Segoe UI', sans-serif;
 }
 
-/* NAVBAR se verá más elegante con esto */
+/* NAVBAR */
 .navbar{
   background: #0d1b2a !important; /* azul muy oscuro elegante */
 }
 
-/* Tarjetas principales */
+/* TARJETAS PRINCIPALES */
 .card{
-  border:none;
-  border-radius:18px;
+  border: none;
+  border-radius: 18px;
   background: #ffffff;
   box-shadow: 0 10px 25px rgba(13,27,42,0.08);
+  transition: transform 0.3s ease;
 }
 
-/* Tarjetas de APIs */
+.card:hover{
+  transform: translateY(-5px);
+}
+
+/* TARJETAS DE APIS */
 .api-card{
-  padding:30px 10px;
-  font-weight:bold;
-  font-size:18px;
-  transition:0.3s;
-  cursor:pointer;
+  padding: 30px 10px;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.3s;
+  cursor: pointer;
   background: #e8eef7; /* azul claro elegante */
-  color:#0d1b2a;
-  border-radius:14px;
+  color: #0d1b2a;
+  border-radius: 14px;
 }
 
-/* Hover elegante */
 .api-card:hover{
   transform: translateY(-8px);
   background: #d6e4f5;
   box-shadow: 0 12px 20px rgba(13,27,42,0.15);
 }
 
-/* Texto de ubicación más visible */
-#location{
-  color:#0d1b2a;
-  font-size:18px;
+/* GEOLOCALIZACIÓN */
+#location, #weather{
+  color: #0d1b2a;
+  font-size: 18px;
 }
 
-/* Estado (mensaje de GPS) */
 #status{
-  color:#415a77;
-  font-weight:500;
+  color: #415a77;
+  font-weight: 500;
 }
 
+/* LOADER */
+#loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* PANEL LOGIN */
 #authCard{
   background: linear-gradient(135deg,#0d1b2a,#1b263b);
   color: white;
 }
 
 #authCard button{
-  border-radius:10px;
-  font-weight:600;
+  border-radius: 10px;
+  font-weight: 600;
 }
 
 #userPhoto{
-  border:4px solid white;
-  object-fit:cover;
+  border: 4px solid white;
+  object-fit: cover;
 }
