@@ -31,7 +31,7 @@ document.getElementById("refreshPage")?.addEventListener("click", (e)=>{
   location.reload();
 });
 
-// ================= GEOLOCALIZACIÓN + CLIMA =================
+// API Geolocalización + P Online (Clima)
 const status = document.getElementById("status");
 const loader = document.getElementById("loader");
 const locationDiv = document.getElementById("location");
@@ -72,7 +72,7 @@ function error(){
   loader.innerHTML = "";
 }
 
-// ================= MOSTRAR USUARIO (SOLO VISUAL, auth.js maneja login) =================
+// Muestra datos de usuario en navbar si está logueado
 onAuthStateChanged(auth, user => {
   if(user){
     document.getElementById("userPhoto").src = user.photoURL;
@@ -80,3 +80,43 @@ onAuthStateChanged(auth, user => {
     document.getElementById("userEmail").textContent = user.email;
   }
 });
+
+// API Streaming (YOUTUBE): muestra videos relacionados con APIs y JavaScript 
+const YT_KEY = "AQUI_TU_API_KEY";
+
+async function cargarVideosYouTube(){
+  const container = document.getElementById("youtubeVideos");
+
+  try{
+    const res = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=APIs%20JavaScript&type=video&maxResults=6&key=${YT_KEY}`);
+    const data = await res.json();
+
+    container.innerHTML = "";
+
+    data.items.forEach(video=>{
+      const vid = video.id.videoId;
+      const title = video.snippet.title;
+      const thumb = video.snippet.thumbnails.medium.url;
+
+      container.innerHTML += `
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card api-card h-100">
+            <img src="${thumb}" class="card-img-top">
+            <div class="card-body text-center">
+              <h6 class="card-title">${title}</h6>
+              <a href="https://www.youtube.com/watch?v=${vid}" target="_blank" class="btn btn-dark mt-2">
+                Ver video
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+
+  }catch(e){
+    container.innerHTML = "No se pudieron cargar los videos.";
+    console.error(e);
+  }
+}
+
+cargarVideosYouTube();
