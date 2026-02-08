@@ -82,7 +82,7 @@ onAuthStateChanged(auth, user => {
 });
 
 // API Streaming (YOUTUBE): muestra videos relacionados con APIs y JavaScript 
-const YT_KEY = "AQUI_TU_API_KEY";
+const YT_KEY = "AIzaSyAeorortQB5J2-5JWxl9bGxZl3SqMvwMyI";
 
 async function cargarVideosYouTube(){
   const container = document.getElementById("youtubeVideos");
