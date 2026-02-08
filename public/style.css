@@ -171,4 +171,44 @@ body.dark footer {
     border-radius: 10px;
   }
 }
+/* Tarjetas hover sutil */
+.hover-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-card:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
 
+/* API descripción */
+.api-desc {
+  margin-top: 0.5rem;
+  padding: 10px;
+  border-radius: 10px;
+  background: #ffe0ff; /* modo claro */
+  color: #89004f;
+  font-family: 'Segoe UI', sans-serif;
+  transition: all 0.3s ease;
+}
+body.dark .api-desc {
+  background: #62152d;
+  color: #fff;
+}
+
+/* Cards APIs hover */
+.api-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Cards Quienes somos y Servicios modo claro */
+.content-block {
+  background: #f5e1ce;
+  padding: 30px;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+body.dark .content-block {
+  background: #952f57;
+  color: #fff;
+}

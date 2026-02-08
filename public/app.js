@@ -66,5 +66,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Modo claro/oscuro
   const toggleTheme = document.getElementById("toggleTheme");
   toggleTheme.addEventListener("click", ()=>{ document.body.classList.toggle("dark"); });
+  
+  function toggleDescription(index){
+  const desc = document.getElementById('desc'+index);
+  desc.classList.toggle('d-none');
+}
+
 
 });
