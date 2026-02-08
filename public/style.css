@@ -179,3 +179,40 @@ body.dark #userEmail { color:white !important; }
     gap: 4px;
   }
 }
+/* =========================
+   NAVBAR DISTRIBUCIÓN DESKTOP
+========================= */
+
+@media (min-width: 992px){
+  .offcanvas-body .navbar-nav{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 28px;
+    align-items: center;
+  }
+}
+
+/* Scroll suave y compensación por navbar fija */
+html{
+  scroll-behavior: smooth;
+}
+section{
+  scroll-margin-top: 80px;
+}
+
+/* =========================
+   TITULOS DE API EN BOLD
+========================= */
+.api-title{
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* =========================
+   MESSENGER HOVER SIN CAMBIAR COLOR
+========================= */
+.messenger-btn:hover{
+  background: #0084ff !important;
+  color: white !important;
+}

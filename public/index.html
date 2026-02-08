@@ -33,11 +33,12 @@
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav flex-grow-1 justify-content-lg-end">
-          <li class="nav-item"><a class="nav-link" href="#inicio" data-bs-dismiss="offcanvas">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link" href="#quienes" data-bs-dismiss="offcanvas">Quiénes somos</a></li>
-          <li class="nav-item"><a class="nav-link" href="#apoyo" data-bs-dismiss="offcanvas">Apoyo</a></li>
-          <li class="nav-item"><a class="nav-link" href="#apis" data-bs-dismiss="offcanvas">APIs</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contacto" data-bs-dismiss="offcanvas">Contacto</a></li>
+          <li class="nav-item"><a class="nav-link nav-scroll" href="#inicio" data-bs-dismiss="offcanvas">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link nav-scroll" href="#quienes" data-bs-dismiss="offcanvas">Quiénes somos</a></li>
+          <li class="nav-item"><a class="nav-link nav-scroll" href="#apoyo" data-bs-dismiss="offcanvas">Apoyo</a></li>
+          <li class="nav-item"><a class="nav-link nav-scroll" href="#apis" data-bs-dismiss="offcanvas">APIs</a></li>
+          <li class="nav-item"><a class="nav-link nav-scroll" href="#contacto" data-bs-dismiss="offcanvas">Contacto</a></li>
+
           <li class="nav-item mt-2 text-start">
   <button id="toggleTheme" class="theme-btn">🌓</button>
 </li>
@@ -122,39 +123,39 @@
   <div class="row g-4 justify-content-center">
     <div class="col-12 col-md-6 col-lg-2">
       <div class="card api-card" onclick="toggleDescription(1)">
-        Redes Sociales
+  <div class="api-title">Redes Sociales</div>
         <div class="api-desc d-none" id="desc1">
           Las APIs de redes sociales permiten interactuar con plataformas como Facebook, Instagram o Twitter. Por ejemplo, se pueden extraer publicaciones o estadísticas de usuarios. Actualmente aún no se implementa en gigiAPIs.
         </div>
       </div>
     </div>
     <div class="col-12 col-md-6 col-lg-2">
-      <div class="card api-card" onclick="toggleDescription(2)">
-        Streaming
+      <div class="card api-card" onclick="toggleDescription(1)">
+  <div class="api-title">Streaming</div>
         <div class="api-desc d-none" id="desc2">
           Las APIs de streaming facilitan la reproducción de contenido multimedia desde plataformas como YouTube o Spotify. Actualmente aún no se implementa en gigiAPIs.
         </div>
       </div>
     </div>
     <div class="col-12 col-md-6 col-lg-2">
-      <div class="card api-card" onclick="toggleDescription(3)">
-        Plataformas Online
+      <div class="card api-card" onclick="toggleDescription(1)">
+  <div class="api-title">Plataformas Online</div>
         <div class="api-desc d-none" id="desc3">
           Las APIs de plataformas online permiten interactuar con servicios como marketplaces o plataformas educativas, para acceder a datos y funcionalidades. En gigiAPIs se utiliza OpenWeather para clima.
         </div>
       </div>
     </div>
     <div class="col-12 col-md-6 col-lg-2">
-      <div class="card api-card" onclick="toggleDescription(4)">
-        Bases de Datos
+      <div class="card api-card" onclick="toggleDescription(1)">
+  <div class="api-title">Bases de datos</div>
         <div class="api-desc d-none" id="desc4">
           Las APIs de bases de datos permiten consultar y manipular datos de manera programática. En gigiAPIs se implementa ejemplo de integración con Firebase como backend.
         </div>
       </div>
     </div>
     <div class="col-12 col-md-6 col-lg-2">
-      <div class="card api-card" onclick="toggleDescription(5)">
-        Geolocalización
+      <div class="card api-card" onclick="toggleDescription(1)">
+  <div class="api-title">Geolocalización</div>
         <div class="api-desc d-none" id="desc5">
           Las APIs de geolocalización permiten obtener la ubicación del usuario en tiempo real y acceder a información relevante del entorno. Para gigiAPIs se utiliza OpenCageData para geolocalización.
         </div>
