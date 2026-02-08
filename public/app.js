@@ -1,110 +1,63 @@
-import { auth, provider, db } from "./firebase.js";
-import {
-  signInWithPopup,
-  onAuthStateChanged
+// auth.js
+import { auth, db } from "./firebase.js";
+import { 
+  GoogleAuthProvider, 
+  TwitterAuthProvider,
+  signInWithPopup, 
+  onAuthStateChanged, 
+  signOut 
 } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
-import {
-  collection,
-  addDoc
-} from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+// Providers
+const googleProvider = new GoogleAuthProvider();
+const twitterProvider = new TwitterAuthProvider();
 
-document.addEventListener("DOMContentLoaded", () => {
+// Botones
+const googleBtn = document.getElementById("googleLogin");
+const twitterBtn = document.getElementById("twitterLogin");
+const logoutBtn = document.getElementById("logoutBtn");
 
-  const openCageKey = "4e7c51f2c46042caad60314486a9f31e";
-  const weatherKey = "a8298c551d4cf6e0334e10a8953e6187";
-
-  const status = document.getElementById("status");
-  const locationDiv = document.getElementById("location");
-  const weatherDiv = document.getElementById("weather");
-
-  // -------- GEOLOCALIZACIÓN --------
-  navigator.geolocation.getCurrentPosition(
-    async (position) => {
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-
-      // 1️⃣ Mostrar ubicación textual (OpenCage)
-      try {
-        const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${openCageKey}`;
-        const response = await fetch(url);
-        const data = await response.json();
-        const components = data.results[0].components;
-
-        const municipio =
-          components.city ||
-          components.town ||
-          components.village ||
-          components.county ||
-          "Municipio desconocido";
-
-        const estado = components.state || "Estado desconocido";
-        const pais = components.country || "País desconocido";
-
-        locationDiv.innerHTML = `
-          <strong>Ubicación detectada:</strong><br>
-          ${municipio}, ${estado}, ${pais}
-        `;
-
-        status.style.display = "none";
-
-        // Guardar en Firestore SIN romper nada si falla
-        try {
-          await addDoc(collection(db, "ubicaciones"), {
-            municipio,
-            estado,
-            pais,
-            fecha: new Date()
-          });
-        } catch (e) {
-          console.warn("No se pudo guardar en Firestore");
-        }
-
-      } catch (e) {
-        locationDiv.textContent = "No se pudo obtener la ubicación textual.";
-        status.style.display = "none";
-      }
-
-      // 2️⃣ Obtener clima (OpenWeather) — independiente
-      obtenerClima(lat, lon);
-    },
-
-    (error) => {
-      status.textContent = "Permiso de ubicación denegado.";
-    }
-  );
-
-  // -------- FUNCIÓN CLIMA (NO AFECTA GEO) --------
-  async function obtenerClima(lat, lon) {
-    try {
-      const weatherURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weatherKey}&units=metric&lang=es`;
-
-      const weatherResponse = await fetch(weatherURL);
-      const weatherData = await weatherResponse.json();
-
-      const temp = weatherData.main.temp;
-      const desc = weatherData.weather[0].description;
-
-      weatherDiv.innerHTML = `
-        🌤 <strong>Clima actual en tu zona:</strong><br>
-        ${temp}°C • ${desc}
-      `;
-    } catch (e) {
-      console.warn("El clima falló pero la ubicación ya se mostró");
-    }
+// ---- LOGIN GOOGLE ----
+googleBtn?.addEventListener("click", async () => {
+  try {
+    await signInWithPopup(auth, googleProvider);
+  } catch (err) {
+    console.error("Error login con Google:", err);
   }
+});
 
-  // -------- AUTENTICACIÓN GOOGLE --------
-  const googleBtn = document.getElementById("googleLogin");
+// ---- LOGIN TWITTER ----
+twitterBtn?.addEventListener("click", async () => {
+  try {
+    await signInWithPopup(auth, twitterProvider);
+  } catch (err) {
+    console.error("Error login con Twitter:", err);
+  }
+});
 
-  googleBtn.addEventListener("click", async () => {
-    await signInWithPopup(auth, provider);
-  });
+// ---- LOGOUT ----
+logoutBtn?.addEventListener("click", async () => {
+  try {
+    await signOut(auth);
+  } catch (err) {
+    console.error("Error cerrando sesión:", err);
+  }
+});
 
-  onAuthStateChanged(auth, user => {
-    if (user) {
-      console.log("Usuario logeado:", user.email);
-    }
-  });
+// ---- DETECTAR CAMBIO DE USUARIO ----
+onAuthStateChanged(auth, user => {
+  const loginPanel = document.getElementById("loginPanel");
+  const userPanel = document.getElementById("userPanel");
 
+  if(user){
+    loginPanel.classList.add("d-none");
+    userPanel.classList.remove("d-none");
+
+    document.getElementById("userPhoto").src = user.photoURL || "default.png";
+    document.getElementById("userName").textContent = user.displayName || "Usuario";
+    document.getElementById("userEmail").textContent = user.email || "Sin email";
+  } else {
+    loginPanel.classList.remove("d-none");
+    userPanel.classList.add("d-none");
+  }
 });
